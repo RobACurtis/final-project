@@ -1,9 +1,21 @@
+/* navbar  */
+nav {
+  height: 3.8rem;
+}
+
+.logo {
+  width: 150px;
+  position: fixed;
+  left: 8%;
+  top: 0.9rem;
+}
+
 /* Home page  */
 
 .overlay-homepage {
   height: 100vh;
   width: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 }
 
 #explore-text {
@@ -45,13 +57,97 @@
   width: 8rem;
 }
 
-@media only screen and (min-width: 600px) {
+/* explore page */
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.img-gallery {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  transition: 1s linear;
+}
+
+.landscape {
+  width: 75%;
+  flex-grow: 1;
+  margin: 1px;
+  object-fit: cover;
+  transition: 0.5s ease-out;
+  cursor: pointer;
+}
+
+.portrait {
+  width: 22%;
+  flex-grow: 1;
+  margin: 1px;
+  object-fit: cover;
+  transition: 0.5s ease-out;
+  cursor: pointer;
+}
+
+.square {
+  width: 60%;
+  flex-grow: 1;
+  margin: 1px;
+  object-fit: cover;
+  transition: 0.5s ease-out;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .landscape {
+    width: 60%;
+    flex-grow: 2;
+  }
+
+  .portrait {
+    width: 19%;
+  }
+
+  .square {
+    width: 39%;
+    flex-grow: 0;
+  }
+
   .home-title {
     font-size: 3em;
   }
 }
 
-@media only screen and (min-width: 910px) {
+@media screen and (min-width: 700px) {
+  .landscape {
+    width: 48%;
+    flex-grow: 8;
+  }
+
+  .portrait {
+    width: 20%;
+  }
+
+  .square {
+    width: 40%;
+    flex-grow: 2;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .landscape {
+    width: 36%;
+  }
+
+  .portrait {
+    width: 15%;
+  }
+
+  .square {
+    width: 30%;
+  }
+
   .home-title {
     font-size: 3.5em;
   }
@@ -63,12 +159,40 @@
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@media screen and (min-width: 1400px) {
+  .landscape {
+    width: 30%;
+    flex-grow: 3;
+  }
+
+  .portrait {
+    width: 10%;
+  }
+
+  .square {
+    width: 20%;
+  }
+
   .home-title {
     font-size: 4em;
   }
 
   .home-subtitle {
     font-size: 1.8em;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .landscape {
+    width: 25%;
+    flex-grow: 3;
+  }
+
+  .portrait {
+    width: 10%;
+  }
+
+  .square {
+    width: 20%;
   }
 }

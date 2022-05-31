@@ -23,10 +23,6 @@ app.get('/api/explore-images', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/hello', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
