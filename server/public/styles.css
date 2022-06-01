@@ -1,4 +1,15 @@
 /* navbar  */
+* {
+  font-family: 'Inter', serif;
+}
+
+a {
+  cursor: pointer;
+}
+
+body {
+  background-color: #F8F8FF;
+}
 nav {
   height: 3.8rem;
 }
@@ -9,12 +20,24 @@ nav {
   left: 8%;
   top: 0.9rem;
 }
+#navbar-light {
+ top: 4rem;
+}
+.photostream-div {
+  color: rgba(0, 0, 0, 0.5);
+ position: relative;
+ justify-content: center;
+ align-items: flex-end;
+ width: 10rem;
+ top: 0.6rem;
+ left: 12%;
 
-.light-nav {
-  position: fixed;
-  top: 20%;
 }
 
+.active {
+ color: black;
+ border-bottom: 2px solid #007BFF;
+}
 /* Home page  */
 
 .overlay-homepage {
