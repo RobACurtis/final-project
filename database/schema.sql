@@ -10,6 +10,8 @@ CREATE TABLE "users" (
 	"userId" serial NOT NULL,
 	"username" TEXT NOT NULL,
 	"hashedPassword" TEXT NOT NULL,
+	"firstName" TEXT NOT NULL,
+	"lastName" TEXT NOT NULL,
 	"email" TEXT NOT NULL,
 	"location" TEXT NOT NULL,
   "createdAt" timestamp with time zone NOT NULL,

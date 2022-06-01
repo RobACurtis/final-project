@@ -10,6 +10,11 @@ nav {
   top: 0.9rem;
 }
 
+.light-nav {
+  position: fixed;
+  top: 20%;
+}
+
 /* Home page  */
 
 .overlay-homepage {
