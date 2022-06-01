@@ -53,11 +53,48 @@ nav {
   text-align: center;
 }
 
-.button {
-  width: 8rem;
+.explore-button {
+  width: 8.5rem;
 }
 
 /* explore page */
+
+/* image modal  */
+.close-button {
+  position: fixed;
+  top: 12%;
+  right: 5%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  padding: 0;
+}
+
+.fa-window-close {
+  font-size: 20px;
+  color: white;
+}
+
+.img-expand-container {
+  margin: auto;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+}
+
+.img-expand {
+  max-height: 80vh;
+  max-width: 90%;
+}
+
+.img-modal-overlay {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  background-image: linear-gradient(rgba(52, 58, 64, 90%), rgba(52, 58, 64, 90%));
+}
+
+/* gallery */
 
 .container {
   width: 80%;
