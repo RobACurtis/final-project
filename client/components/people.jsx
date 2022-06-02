@@ -4,7 +4,7 @@ export default class People extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: null,
+      users: null
     };
   }
 
@@ -20,19 +20,17 @@ export default class People extends React.Component {
     let userId = 0;
     const userCards = users.map(user => {
       userId++;
-      const {firstName, lastName, location, profileImageUrl} = user;
+      const { firstName, lastName, location, profileImageUrl } = user;
       return (
-        <>
         <div key={userId} className='d-flex card-container'>
-          <img className='card-img mt-3 mx-2' src={profileImageUrl} alt="user photo" />
-          <div className='card-info'>
-            <h4 className='card-name'>{`${firstName} ${lastName}`}</h4>
-            <p className='card-location'>{`${location}`}</p>
+          <img key={ `${userId} img`} className='card-img mt-3 mx-2' src={profileImageUrl} alt="user photo" />
+          <div key={`${userId} card-info`} className='card-info'>
+            <h4 key={`${userId} card-name`} className='card-name'>{`${firstName} ${lastName}`}</h4>
+            <p key={`${userId} card-location`} className='card-location'>{`${location}`}</p>
           </div>
         </div>
-        </>
-      )
-    })
+      );
+    });
     return (
       <>
       <div className='user-card-container'>
