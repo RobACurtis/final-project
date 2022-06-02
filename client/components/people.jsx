@@ -22,11 +22,11 @@ export default class People extends React.Component {
       userId++;
       const { firstName, lastName, location, profileImageUrl } = user;
       return (
-        <div key={userId} className='d-flex card-container'>
-          <img key={ `${userId} img`} className='card-img mt-3 mx-2' src={profileImageUrl} alt="user photo" />
-          <div key={`${userId} card-info`} className='card-info'>
-            <h4 key={`${userId} card-name`} className='card-name'>{`${firstName} ${lastName}`}</h4>
-            <p key={`${userId} card-location`} className='card-location'>{`${location}`}</p>
+        <div key={`${userId}-container`} className='d-flex card-container'>
+          <img key={ `${userId}-img`} className='card-img mt-3 mx-2' src={profileImageUrl} alt="user photo" />
+          <div key={`${userId}-card-info`} className='card-info'>
+            <h4 key={`${userId}-card-name`} className='card-name'>{`${firstName} ${lastName}`}</h4>
+            <p key={`${userId}-card-location`} className='card-location'>{`${location}`}</p>
           </div>
         </div>
       );
