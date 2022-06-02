@@ -23,11 +23,11 @@ export default class People extends React.Component {
       const {firstName, lastName, location, profileImageUrl} = user;
       return (
         <>
-        <div key={userId} className='d-flex'>
-          <img src={profileImageUrl} alt="user photo" />
-          <div>
-            <h4>{`${firstName} ${lastName}`}</h4>
-            <p>{`${location}`}</p>
+        <div key={userId} className='d-flex card-container'>
+          <img className='card-img mt-3 mx-2' src={profileImageUrl} alt="user photo" />
+          <div className='card-info'>
+            <h4 className='card-name'>{`${firstName} ${lastName}`}</h4>
+            <p className='card-location'>{`${location}`}</p>
           </div>
         </div>
         </>
@@ -35,7 +35,14 @@ export default class People extends React.Component {
     })
     return (
       <>
-      {userCards}
+      <div className='user-card-container'>
+        <div className='user-card-list'>
+        <p className='members-title'>Surfr Members</p>
+          <div className='d-flex flex-wrap'>
+              {userCards}
+          </div>
+          </div>
+      </div>
       </>
     );
   }

@@ -28,13 +28,15 @@ export default class Explore extends React.Component {
       return (
         <>
           <Navbar />
-          <nav id="navbar-light" className="navbar navbar-expand-lg bg-light py-3 shadow-sm">
-            <div className="photostream-div d-flex active">
-              <a onClick={this.toggle}><p id='photostream'> Photostream</p></a>
-            </div>
-            <div className="photostream-div d-flex">
-              <a onClick={this.toggle}><p id='people'> People</p></a>
-            </div>
+          <nav id="navbar-light" className="navbar bg-light py-3 shadow-sm fixed-top">
+            <ul className="navbar-list">
+            <li className="nav-item photostream active-nav">
+                <a onClick={this.toggle}><p id='photostream'> Photostream</p></a>
+            </li>
+            <li className="nav-item active photostream">
+                <a onClick={this.toggle}><p id='people'> People</p></a>
+            </li>
+            </ul>
           </nav>
           <Photostream />
         </>
@@ -42,14 +44,16 @@ export default class Explore extends React.Component {
     } else {
       return (
         <>
-         <Navbar />
-         <nav id="navbar-light" className="navbar navbar-expand-lg bg-light py-3 shadow-sm">
-            <div className="photostream-div d-flex">
-              <a onClick={this.toggle}><p id='photostream'> Photostream</p></a>
-            </div>
-            <div className="photostream-div d-flex active">
-              <a onClick={this.toggle}><p id='people'> People</p></a>
-            </div>
+          <Navbar />
+          <nav id="navbar-light" className="navbar bg-light py-3 shadow-sm fixed-top">
+            <ul className="navbar-list">
+              <li className="nav-item photostream">
+                <a onClick={this.toggle}><p id='photostream'> Photostream</p></a>
+              </li>
+              <li className="nav-item active photostream active-nav">
+                <a onClick={this.toggle}><p id='people'> People</p></a>
+              </li>
+            </ul>
           </nav>
           <People />
         </>

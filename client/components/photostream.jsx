@@ -71,7 +71,7 @@ export default class Photostream extends React.Component {
             <img src={src} alt='surfing' className='img-expand' />
           </div>
         </div>
-        <div id="gallery-container" className="container mt-5 pt-5">
+        <div className="gallery-container mt-5 pt-5">
           <div id="gallery" className="img-gallery">
             {images}
           </div>
