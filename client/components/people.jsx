@@ -36,7 +36,7 @@ export default class People extends React.Component {
       <div className='user-card-container'>
         <div className='user-card-list'>
         <p className='members-title'>Surfr Members</p>
-          <div className='d-flex flex-wrap'>
+          <div className='d-flex flex-wrap hello'>
               {userCards}
           </div>
           </div>

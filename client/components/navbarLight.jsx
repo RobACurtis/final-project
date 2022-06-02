@@ -1,21 +1,20 @@
 import React from 'react';
 
-export default function NavbarLight(props) {
-  // console.log(props);
-  let photostream = '';
-  let people = '';
+export default function ExploreNavbar(props) {
+  let photostreamActive = '';
+  let peopleActive = '';
   if (props.active === 'photostream') {
-    photostream = 'active-nav';
+    photostreamActive = 'active-nav';
   } else if (props.active === 'people') {
-    people = 'active-nav';
+    peopleActive = 'active-nav';
   }
   return (
   <nav id="navbar-light" className="navbar bg-light py-3 shadow-sm fixed-top">
     <ul className="navbar-list">
-    <li className={`nav-item photostream ${photostream}`}>
+      <li className={`nav-item light-nav-list-item ${photostreamActive}`}>
         <a href='#explore'><p id='photostream'> Photostream</p></a>
     </li>
-    <li className={`nav-item active photostream ${people}`}>
+      <li className={`nav-item light-nav-list-item ${peopleActive}`}>
         <a href='#explore-people'><p id='people'> People</p></a>
       </li>
       </ul>
