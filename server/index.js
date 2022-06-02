@@ -23,6 +23,20 @@ app.get('/api/explore-images', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/explore-people', (req, res, next) => {
+  const sql = `
+      select "firstName",
+            "lastName",
+            "email",
+            "location",
+            "profileImageUrl"
+       from "users"
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

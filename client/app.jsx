@@ -24,9 +24,10 @@ export default class App extends React.Component {
     const { route } = this.state;
     if (route.path === '') {
       return <Home list={homePageImages} />;
-    }
-    if (route.path === 'explore') {
-      return <Explore />;
+    } else if (route.path === 'explore') {
+      return <Explore active='photostream' />;
+    } else if (route.path === 'explore-people') {
+      return <Explore active='people'/>;
     }
   }
 

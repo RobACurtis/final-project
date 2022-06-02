@@ -1,6 +1,6 @@
-insert into "users" ("username", "hashedPassword", "email", "location", "createdAt")
-values ('John Johnson', '1234', 'john_johnson@surfr.com', 'Sydney, Australia', now()),
-       ('Chris Burkard', '1234', 'Chris_Burkard@surfr.com', 'Pismo Beach, California', now());
+insert into "users" ("username", "hashedPassword", "firstName", "lastName", "email", "location", "createdAt")
+values ('JJPhoto', '1234', 'John', 'Johnson', 'john_johnson@surfr.com', 'Sydney, Australia', now()),
+       ('Iceman', '1234', 'Chris', 'Burkard', 'Chris_Burkard@surfr.com', 'Pismo Beach, California', now());
 
 insert into "photos" ("userId", "imageUrl", "createdAt")
 values (1, '/images/example1.jpg', now()),
