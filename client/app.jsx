@@ -29,8 +29,9 @@ export default class App extends React.Component {
       return <Explore active='photostream' />;
     } else if (route.path === 'explore-people') {
       return <Explore active='people'/>;
-    } else if (route.userPath === 'people') {
-      return <ProfilePage id={route.id} />;
+    } else if (route.path === 'photographer-profile') {
+      const userId = route.params.get('userId');
+      return <ProfilePage userId={userId} />;
     }
   }
 

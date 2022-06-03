@@ -4,6 +4,5 @@ export default function parseRoute(hashRoute) {
   }
   const [path, queryString] = hashRoute.split('?');
   const params = new URLSearchParams(queryString);
-  const [userPath, id] = path.split('/');
-  return { path, params, id, userPath };
+  return { path, params };
 }

@@ -38,7 +38,7 @@ app.get('/api/explore-people', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/explore-people/:userId', (req, res, next) => {
+app.get('/api/photographer-profile/:userId', (req, res, next) => {
   const userId = req.params.userId;
   const sql = `
       select "users"."firstName",
@@ -55,7 +55,7 @@ app.get('/api/explore-people/:userId', (req, res, next) => {
     .then(result => {
       const user = result.rows;
       if (user[0] === undefined) {
-        res.status(404).json({error: `Cannot find userId ${userId}`});
+        res.status(404).json({ error: `Cannot find userId ${userId}` });
       } else {
         res.status(200).json(user);
       }
