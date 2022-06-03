@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './pages/home';
 import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
+import ProfilePage from './components/profilePage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -28,6 +29,8 @@ export default class App extends React.Component {
       return <Explore active='photostream' />;
     } else if (route.path === 'explore-people') {
       return <Explore active='people'/>;
+    } else if (route.userPath === 'people') {
+      return <ProfilePage id={route.id} />;
     }
   }
 

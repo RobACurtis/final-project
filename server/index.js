@@ -29,11 +29,37 @@ app.get('/api/explore-people', (req, res, next) => {
             "lastName",
             "email",
             "location",
-            "profileImageUrl"
+            "profileImageUrl",
+            "userId"
        from "users"
   `;
   db.query(sql)
     .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
+app.get('/api/explore-people/:userId', (req, res, next) => {
+  const userId = req.params.userId;
+  const sql = `
+      select "users"."firstName",
+      "users"."lastName",
+      "users"."email",
+      "users"."location",
+      "photos"."imageUrl"
+      from "users"
+      join "photos" using ("userId")
+      where "userId" = $1
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      const user = result.rows;
+      if (user[0] === undefined) {
+        res.status(404).json({error: `Cannot find userId ${userId}`});
+      } else {
+        res.status(200).json(user);
+      }
+    })
     .catch(err => next(err));
 });
 
