@@ -1,5 +1,4 @@
 import React from 'react';
-let styles = {};
 
 export default class Photostream extends React.Component {
   constructor(props) {
@@ -14,23 +13,14 @@ export default class Photostream extends React.Component {
 
   componentDidMount() {
     if (this.props.images) {
-      styles = {
-        margin: {
-          'marginTop': '2em'
-        }
-      };
-      this.setState({ images: this.props.images })
+      const images = this.props.images;
+      this.setState({ images });
     } else {
-    fetch('/api/explore-images')
-      .then(res => res.json())
-      .then(images => {
-        styles = {
-          margin: {
-            'marginTop': '10em'
-          }
-        };
-        this.setState({ images });
-      });
+      fetch('/api/explore-images')
+        .then(res => res.json())
+        .then(images => {
+          this.setState({ images });
+        });
     }
   }
 
@@ -89,7 +79,7 @@ export default class Photostream extends React.Component {
           </div>
         </div>
         <div className="gallery-container">
-          <div id="gallery" className="img-gallery" style={styles.margin}>
+          <div id="gallery" className="img-gallery">
             {images}
           </div>
         </div>

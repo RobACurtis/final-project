@@ -16,17 +16,20 @@ export default class ProfilePage extends React.Component {
     fetch('/api/photographer-profile/' + this.state.userId)
       .then(res => res.json())
       .then(user => {
-        const firstName = user[0].firstName;
-        const lastName = user[0].lastName;
-        const email = user[0].email;
-        const location = user[0].location;
-        const coverImageUrl = user[0].coverImageUrl;
-        const profileImageUrl = user[0].profileImageUrl;
-        const imageUrls = user.map(imageUrl => {
-          return { imageUrl: imageUrl.imageUrl };
+        const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
+        const imageUrls = photos.map(imageUrl => {
+          return { imageUrl };
         });
+
         this.setState({
-          user: { firstName, lastName, email, location, coverImageUrl, profileImageUrl },
+          user: {
+            firstName,
+            lastName,
+            email,
+            location,
+            coverImageUrl,
+            profileImageUrl
+          },
           imageUrls
         });
       });
@@ -44,20 +47,22 @@ export default class ProfilePage extends React.Component {
           <div className="profile-container">
             <div className="overlay-coverphoto"></div>
             <div className="coverphoto-container">
-              <img src={coverImageUrl} className="coverphoto" alt="..." />
+              <img src={coverImageUrl} className="coverphoto" alt="shorebreak" />
             </div>
-            <div className="profile-info ">
-              <div className="column-thirty">
-                <img src={profileImageUrl} className="profile-image" alt="..." />
+          <div className="profile-info">
+              <div>
+                <img src={profileImageUrl} className="profile-image" alt="profile picture" />
               </div>
-              <div className="column-half user-info">
-                <h5 className="profile-name">{`${firstName} ${lastName}`}</h5>
-                <p className='profile-location' >{location}</p>
-              <a target="_blank" rel="noopener noreferrer" href={emailHref} className='profile-email'> {email}</a>
+              <div className="text-white">
+                <h1 className="profile-name">{`${firstName} ${lastName}`}</h1>
+                <p className='profile-subtext' >{location}</p>
+              <a target="_blank" rel="noopener noreferrer" href={emailHref} className='profile-subtext email'>
+                {email}
+                </a>
               </div>
             </div>
           </div>
-        <nav className="navbar bg-light py-3 shadow-sm profile-navbar-light">
+        <nav className="navbar bg-light py-3 shadow-sm profile-navbar-light position-sticky">
           <ul className="navbar-list">
             <li className="nav-item light-nav-list-item active-nav">
               <p id='photostream'> Photostream</p>

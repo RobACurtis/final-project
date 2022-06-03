@@ -47,10 +47,11 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       "users"."location",
       "users"."coverImageUrl",
       "users"."profileImageUrl",
-      "photos"."imageUrl"
+      array_agg("photos"."imageUrl") as "photos"
       from "users"
       join "photos" using ("userId")
-      where "userId" = $1
+      where "users"."userId" = $1
+      group by "users"."userId"
   `;
   const params = [userId];
   db.query(sql, params)
