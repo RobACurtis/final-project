@@ -17,11 +17,10 @@ export default class People extends React.Component {
   render() {
     if (!this.state.users) return null;
     const users = this.state.users;
-    let userId = 0;
     const userCards = users.map(user => {
-      userId++;
-      const { firstName, lastName, location, profileImageUrl } = user;
+      const { firstName, lastName, location, profileImageUrl, userId } = user;
       return (
+        <a href={`#photographer-profile?userId=${userId}`} key={`${userId}-link`} >
         <div key={`${userId}-container`} className='d-flex card-container'>
           <img key={ `${userId}-img`} className='card-img mt-3 mx-2' src={profileImageUrl} alt="user photo" />
           <div key={`${userId}-card-info`} className='card-info'>
@@ -29,8 +28,10 @@ export default class People extends React.Component {
             <p key={`${userId}-card-location`} className='card-location'>{`${location}`}</p>
           </div>
         </div>
+        </a>
       );
     });
+
     return (
       <>
       <div className='user-card-container'>
@@ -39,7 +40,7 @@ export default class People extends React.Component {
           <div className='d-flex flex-wrap hello'>
               {userCards}
           </div>
-          </div>
+        </div>
       </div>
       </>
     );

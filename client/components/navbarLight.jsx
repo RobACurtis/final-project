@@ -9,7 +9,7 @@ export default function ExploreNavbar(props) {
     peopleActive = 'active-nav';
   }
   return (
-  <nav id="navbar-light" className="navbar bg-light py-3 shadow-sm fixed-top">
+  <nav id="navbar-light" className="navbar bg-light py-3 shadow-sm position-sticky">
     <ul className="navbar-list">
       <li className={`nav-item light-nav-list-item ${photostreamActive}`}>
         <a href='#explore'><p id='photostream'> Photostream</p></a>

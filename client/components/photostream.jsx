@@ -12,9 +12,16 @@ export default class Photostream extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/explore-images')
-      .then(res => res.json())
-      .then(images => this.setState({ images }));
+    if (this.props.images) {
+      const images = this.props.images;
+      this.setState({ images });
+    } else {
+      fetch('/api/explore-images')
+        .then(res => res.json())
+        .then(images => {
+          this.setState({ images });
+        });
+    }
   }
 
   imgModal(event) {
@@ -71,7 +78,7 @@ export default class Photostream extends React.Component {
             <img src={src} alt='surfing' className='img-expand' />
           </div>
         </div>
-        <div className="gallery-container mt-5 pt-5">
+        <div className="gallery-container">
           <div id="gallery" className="img-gallery">
             {images}
           </div>
