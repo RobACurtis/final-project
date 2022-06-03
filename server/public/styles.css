@@ -263,6 +263,7 @@ nav {
   height: 22rem;
   position: relative;
 }
+
 .overlay-coverphoto {
   height: 100%;
   width: 100%;
@@ -277,16 +278,15 @@ nav {
   z-index: -1;
 }
 
-.coverphoto{
+.coverphoto {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .profile-info {
-  width: 40rem;
   position: relative;
-  top: 40%;
+  top: 10%;
   left: 10%;
 }
 
@@ -299,18 +299,36 @@ nav {
 
 .photostream-div {
   color: black;
- font-family: 'Inter', serif;
- font-size: 26px;
- font-weight: 200;
- position: relative;
- text-align: center;
- width: 200px;
- left: 15%;
- top: 13px;
- border-bottom: 2px solid #007BFF;
+  font-family: Inter, serif;
+  font-size: 26px;
+  font-weight: 200;
+  position: relative;
+  text-align: center;
+  width: 200px;
+  left: 15%;
+  top: 13px;
+  border-bottom: 2px solid #007bff;
 }
 
-.user-info{
+.profile-name {
+  margin-top: 1em;
+}
+
+.profile-email {
+  margin: 0;
+  padding: 0;
+}
+
+.profile-email:hover {
+  text-decoration: underline;
+}
+
+.profile-location {
+  margin: 0;
+  padding: 0;
+}
+
+.user-info {
   text-align: start;
   justify-content: flex-end;
   color: white;
@@ -321,6 +339,7 @@ nav {
   display: flex;
   flex-direction: column;
 }
+
 .column-half {
   width: 50%;
   display: flex;
