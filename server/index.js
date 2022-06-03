@@ -45,6 +45,8 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       "users"."lastName",
       "users"."email",
       "users"."location",
+      "users"."coverImageUrl",
+      "users"."profileImageUrl",
       "photos"."imageUrl"
       from "users"
       join "photos" using ("userId")

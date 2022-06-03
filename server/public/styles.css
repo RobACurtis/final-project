@@ -197,6 +197,7 @@ nav {
   width: 100%;
   height: 100vh;
   position: fixed;
+  top: 5%;
 }
 
 .img-expand {
@@ -208,6 +209,7 @@ nav {
   height: 100vh;
   width: 100%;
   position: fixed;
+  top: 0;
   background-image: linear-gradient(rgba(52, 58, 64, 90%), rgba(52, 58, 64, 90%));
 }
 
@@ -219,7 +221,6 @@ nav {
 }
 
 .img-gallery {
-  margin-top: 10%;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -252,6 +253,84 @@ nav {
   object-fit: cover;
   transition: 0.5s ease-out;
   cursor: pointer;
+}
+
+/* profile page */
+
+.profile-container {
+  margin-top: 3rem;
+  width: 100%;
+  height: 22rem;
+  position: relative;
+}
+.overlay-coverphoto {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.308), rgba(0, 0, 0, 0.336));
+}
+
+.coverphoto-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.coverphoto{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  width: 40rem;
+  position: relative;
+  top: 40%;
+  left: 10%;
+}
+
+.profile-image {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.photostream-div {
+  color: black;
+ font-family: 'Inter', serif;
+ font-size: 26px;
+ font-weight: 200;
+ position: relative;
+ text-align: center;
+ width: 200px;
+ left: 15%;
+ top: 13px;
+ border-bottom: 2px solid #007BFF;
+}
+
+.user-info{
+  text-align: start;
+  justify-content: flex-end;
+  color: white;
+}
+
+.column-thirty {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+.column-half {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-navbar-light {
+  z-index: 0;
+  width: 100%;
+  cursor: default;
 }
 
 @media screen and (min-width: 600px) {

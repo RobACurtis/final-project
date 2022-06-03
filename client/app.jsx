@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './pages/home';
 import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
-import ProfilePage from './components/profilePage';
+import ProfilePage from './pages/profilePage';
 
 export default class App extends React.Component {
   constructor(props) {

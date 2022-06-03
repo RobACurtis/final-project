@@ -1,4 +1,5 @@
 import React from 'react';
+let styles = {};
 
 export default class Photostream extends React.Component {
   constructor(props) {
@@ -12,9 +13,25 @@ export default class Photostream extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.images) {
+      styles = {
+        margin: {
+          'marginTop': '2em'
+        }
+      };
+      this.setState({ images: this.props.images })
+    } else {
     fetch('/api/explore-images')
       .then(res => res.json())
-      .then(images => this.setState({ images }));
+      .then(images => {
+        styles = {
+          margin: {
+            'marginTop': '10em'
+          }
+        };
+        this.setState({ images });
+      });
+    }
   }
 
   imgModal(event) {
@@ -71,8 +88,8 @@ export default class Photostream extends React.Component {
             <img src={src} alt='surfing' className='img-expand' />
           </div>
         </div>
-        <div className="gallery-container mt-5 pt-5">
-          <div id="gallery" className="img-gallery">
+        <div className="gallery-container">
+          <div id="gallery" className="img-gallery" style={styles.margin}>
             {images}
           </div>
         </div>
