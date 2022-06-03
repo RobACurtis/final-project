@@ -6,14 +6,13 @@ export default class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: this.props.userId,
       user: null,
       imageUrls: []
     };
   }
 
   componentDidMount() {
-    fetch('/api/photographer-profile/' + this.state.userId)
+    fetch('/api/photographer-profile/' + this.props.userId)
       .then(res => res.json())
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
