@@ -52,7 +52,7 @@ export default class SignUp extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => res.json())
       .then(response => {
-        window.location.href = '#';
+        window.location.hash = '#';
       })
       .catch(err => console.error('Error:', err));
   }
