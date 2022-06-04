@@ -76,7 +76,6 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
 });
 
 app.post('/api/auth/sign-up', (req, res, next) => {
-  console.log(req.body);
   const { username, password, location, firstName, lastName, email } = req.body;
   if (!username || !password) {
     throw new ClientError(400, 'username and password are required fields.');
@@ -91,7 +90,7 @@ app.post('/api/auth/sign-up', (req, res, next) => {
       const sql = `
       insert into "users" ("username", "hashedPassword", "location", "firstName", "lastName", "email", "createdAt")
       values ($1, $2, $3, $4, $5, $6, now())
-      returning *;
+      returning "username", "firstName", "lastName", "email", "createdAt", "location";
       `;
       const params = [username, hashedPassword, location, firstName, lastName, email];
       db.query(sql, params)
