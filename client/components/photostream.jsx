@@ -64,9 +64,13 @@ export default class Photostream extends React.Component {
     const images = imageList.map(img => {
       imageId++;
       const { imageUrl } = img;
-      return (
+      if (!imageUrl) {
+        return (<h5 key={imageId}>No photos yet!</h5>);
+      } else {
+        return (
         <img onLoad={onImgLoad} onClick={this.imgModal} key={imageId} src={imageUrl} alt='surfing' />
-      );
+        );
+      }
     });
 
     return (
