@@ -76,6 +76,7 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
 });
 
 app.post('/api/auth/sign-up', (req, res, next) => {
+  console.log(req.body);
   const { username, password, location, firstName, lastName, email } = req.body;
   if (!username || !password) {
     throw new ClientError(400, 'username and password are required fields.');
