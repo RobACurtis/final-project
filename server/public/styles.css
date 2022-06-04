@@ -326,6 +326,66 @@ nav {
   text-decoration: underline;
 }
 
+/* signup page */
+
+.sign-up-image {
+  display: none;
+}
+
+.form-container {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: auto;
+}
+
+.signup-form {
+  background-color: white;
+  padding: 3em 4em;
+  margin-top: 3em;
+  border-radius: 0.3em;
+}
+
+.form-group > input {
+  margin: 1em 0;
+  width: 20em;
+  height: 3.3em;
+}
+
+.header-form {
+  font-weight: 400;
+}
+
+.signup-btn {
+  width: 100%;
+  background-color: #0b99ff;
+  color: white;
+  height: 3.3em;
+}
+
+.circles {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.circle {
+  height: 0.8em;
+  width: 0.8em;
+  margin: 0.05em;
+  border-radius: 50%;
+}
+
+.green-circle {
+  background-color: #7ca;
+}
+
+.blue-circle {
+  background-color: #0063dc;
+}
+
 @media screen and (min-width: 600px) {
   .landscape {
     width: 60%;
@@ -347,6 +407,15 @@ nav {
 }
 
 @media screen and (min-width: 700px) {
+  .sign-up-image {
+    display: inline;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    object-fit: cover;
+    z-index: -1;
+  }
+
   .landscape {
     width: 48%;
   }

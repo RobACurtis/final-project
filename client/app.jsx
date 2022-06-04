@@ -3,6 +3,7 @@ import Home from './pages/home';
 import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
 import ProfilePage from './pages/profilePage';
+import SignUp from './pages/sign-up';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -32,6 +33,8 @@ export default class App extends React.Component {
     } else if (route.path === 'photographer-profile') {
       const userId = route.params.get('userId');
       return <ProfilePage userId={userId} />;
+    } else if (route.path === 'sign-up') {
+      return <SignUp />;
     }
   }
 
