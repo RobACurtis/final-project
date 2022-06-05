@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '../components/navbar';
 
 export default class SignUp extends React.Component {
 
@@ -60,15 +61,11 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <>
-      <nav className="navbar navbar-expand-lg bg-dark py-3 fixed-top">
-        <div className="container-fluid">
-          <a href="#"><img className="logo" src="/logo.svg" alt="surfer logo" /> </a>
-        </div>
-      </nav>
+      <Navbar />
       <div id="home-page">
         <div className="hero-image" >
           <div className='background-form"'></div>
-          <img src='/images/example7.jpg' alt='surfing' className='sign-up-image' />
+          <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
         </div>
       </div>
       <div className='form-container'>
