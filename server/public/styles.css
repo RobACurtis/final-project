@@ -298,6 +298,7 @@ nav {
   position: relative;
   top: 10%;
   left: 10%;
+  width: 20rem;
 }
 
 .profile-image {
@@ -360,7 +361,7 @@ nav {
 .form-group > input {
   margin: 1em 0;
   width: 20em;
-  height: 3.3em;
+  height: 3em;
 }
 
 .header-form {
@@ -425,12 +426,10 @@ nav {
   }
 
   .form-container {
-    width: 450px;
-    height: 700px;
+    width: 60%;
   }
 
   .signup-form {
-    margin-top: 8em;
     padding: 3.5em 3em;
     background-color: white;
   }
@@ -463,6 +462,7 @@ nav {
     top: 45%;
     display: flex;
     flex-wrap: nowrap;
+    width: 35rem;
   }
 
   .landscape {
