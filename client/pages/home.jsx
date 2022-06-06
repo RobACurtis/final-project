@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/navbar';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -44,7 +43,6 @@ export default class Home extends React.Component {
     });
     return (
     <>
-      <Navbar opacity='home-page-nav-opacity' />
       <div id="home-page">
         <div className="hero-image">
         {imgList}

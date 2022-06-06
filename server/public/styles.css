@@ -51,6 +51,16 @@ nav {
   color: white;
 }
 
+.icon {
+  font-size: 1.3em;
+}
+
+.log-in {
+  height: 2em;
+  font-size: 1em;
+  padding-top: 3px;
+}
+
 /* light navbar */
 
 #navbar-light {

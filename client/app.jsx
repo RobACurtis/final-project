@@ -4,12 +4,15 @@ import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
 import ProfilePage from './pages/profilePage';
 import SignUp from './pages/sign-up';
+import Navbar from './components/navbar';
+import LogIn from './/pages/log-in';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: parseRoute(window.location.hash)
+      route: parseRoute(window.location.hash),
+      user: null
     };
     this.renderPage = this.renderPage.bind(this);
   }
@@ -35,12 +38,15 @@ export default class App extends React.Component {
       return <ProfilePage userId={userId} />;
     } else if (route.path === 'sign-up') {
       return <SignUp />;
+    } else if (route.path === 'log-in') {
+      return <LogIn />;
     }
   }
 
   render() {
     return (
     <>
+      <Navbar isLoggedIn={this.state.user} />
       { this.renderPage() }
     </>
     );

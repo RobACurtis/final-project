@@ -1,8 +1,6 @@
 import React from 'react';
-import Navbar from '../components/navbar';
 
-export default class SignUp extends React.Component {
-
+export default class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,22 +51,31 @@ export default class SignUp extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => res.json())
       .then(response => {
-        window.location.hash = '#';
+        window.location.hash = '#log-in';
+        this.setState({
+          signup: false,
+          firstName: '',
+          lastName: '',
+          username: '',
+          password: '',
+          location: '',
+          email: ''
+        });
       })
       .catch(err => console.error('Error:', err));
+
   }
 
   render() {
     return (
       <>
-      <Navbar hidden="d-none" />
-      <div id="home-page">
-        <div className="hero-image" >
-          <div className='background-form"'></div>
-          <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
+        <div id="home-page">
+          <div className="hero-image" >
+            <div className='background-form"'></div>
+            <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
+          </div>
         </div>
-      </div>
-      <div className='form-container'>
+        <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
             <div className='circles'>
               <div className='blue-circle circle'></div>
@@ -95,7 +102,7 @@ export default class SignUp extends React.Component {
             </div>
             <button type="submit" className="btn signup-btn">Sign Up</button>
           </form>
-      </div>
+        </div>
       </>
     );
   }
