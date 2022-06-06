@@ -6,7 +6,7 @@ export default class Home extends React.Component {
     super(props);
     this.nextImg = this.nextImg.bind(this);
     this.state = {
-      imageId: 3
+      imageId: 0
     };
   }
 
@@ -17,10 +17,10 @@ export default class Home extends React.Component {
 
   nextImg() {
     const id = this.state.imageId;
-    if (id === 0) {
-      this.setState({ imageId: 3 });
+    if (id > this.props.list.length - 2) {
+      this.setState({ imageId: 0 });
     } else {
-      this.setState({ imageId: id - 1 });
+      this.setState({ imageId: id + 1 });
     }
   }
 
@@ -29,6 +29,9 @@ export default class Home extends React.Component {
     const images = this.props.list;
     let imageId = 0;
     const imgList = images.map(img => {
+      if (imageId > images.length - 1) {
+        imageId = 0;
+      }
       if (imageId === this.state.imageId) {
         opacity = '';
       } else {

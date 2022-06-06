@@ -61,7 +61,7 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <>
-      <Navbar />
+      <Navbar hidden="d-none" />
       <div id="home-page">
         <div className="hero-image" >
           <div className='background-form"'></div>
@@ -76,22 +76,22 @@ export default class SignUp extends React.Component {
             </div>
             <h5 className='header-form'>Sign up for Surfr</h5>
             <div className="form-group">
-              <input id="firstName" type="first-name" className="form-control" placeholder="First Name" value={this.state.firstName} onChange={this.handleChange}/>
+              <input id="firstName" type="first-name" required className="form-control" placeholder="First Name" value={this.state.firstName} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id="lastName" type="last-name" className="form-control" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange} />
+              <input id="lastName" type="last-name" required className="form-control" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id="username" type="username" className="form-control" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
+              <input id="username" type="username" required className="form-control" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id='password' type="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+              <input id='password' type="password" required className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id='location' type="location" className="form-control" placeholder="Location" value={this.state.location} onChange={this.handleChange} />
+              <input id='location' type="location" required className="form-control" placeholder="Location" value={this.state.location} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id='email' type="email" className="form-control" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
+              <input id='email' type="email" required className="form-control" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
             </div>
             <button type="submit" className="btn signup-btn">Sign Up</button>
           </form>
