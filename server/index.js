@@ -2,7 +2,9 @@ require('dotenv/config');
 const path = require('path');
 const express = require('express');
 const errorMiddleware = require('./error-middleware');
+const ClientError = require('./client-error');
 const db = require('./db');
+const argon2 = require('argon2'); // eslint-disable-line
 
 const app = express();
 const publicPath = path.join(__dirname, 'public');
@@ -12,6 +14,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.static(publicPath));
+const jsonMiddleware = express.json();
+
+app.use(jsonMiddleware);
 
 app.get('/api/explore-images', (req, res, next) => {
   const sql = `
@@ -39,7 +44,10 @@ app.get('/api/explore-people', (req, res, next) => {
 });
 
 app.get('/api/photographer-profile/:userId', (req, res, next) => {
-  const userId = req.params.userId;
+  const userId = Number(req.params.userId);
+  if (!userId) {
+    throw new ClientError(400, 'userId must be a positive integer');
+  }
   const sql = `
       select "users"."firstName",
       "users"."lastName",
@@ -49,10 +57,11 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       "users"."profileImageUrl",
       array_agg("photos"."imageUrl") as "photos"
       from "users"
-      join "photos" using ("userId")
+      left join "photos" using ("userId")
       where "users"."userId" = $1
       group by "users"."userId"
   `;
+
   const params = [userId];
   db.query(sql, params)
     .then(result => {
@@ -62,6 +71,34 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       } else {
         res.status(200).json(user);
       }
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/auth/sign-up', (req, res, next) => {
+  const { username, password, location, firstName, lastName, email } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields.');
+  } else if (!firstName || !lastName) {
+    throw new ClientError(400, 'firstName and lastName are required fields.');
+  } else if (!email || !location) {
+    throw new ClientError(400, 'location and email are required fields.');
+  }
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+      insert into "users" ("username", "hashedPassword", "location", "firstName", "lastName", "email", "createdAt")
+      values ($1, $2, $3, $4, $5, $6, now())
+      returning "username", "firstName", "lastName", "email", "createdAt", "location";
+      `;
+      const params = [username, hashedPassword, location, firstName, lastName, email];
+      db.query(sql, params)
+        .then(result => {
+          const account = result.rows[0];
+          res.status(201).json(account);
+        })
+        .catch(err => next(err));
     })
     .catch(err => next(err));
 });

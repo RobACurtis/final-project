@@ -44,7 +44,7 @@ export default class Home extends React.Component {
     });
     return (
     <>
-      <Navbar opacity='opacity-75' />
+      <Navbar opacity='home-page-nav-opacity' />
       <div id="home-page">
         <div className="hero-image">
         {imgList}
@@ -55,7 +55,7 @@ export default class Home extends React.Component {
               <h1 className="home-title">Find your inspiration.</h1>
               <h3 className="home-subtitle mt-4">Join the Surfr community, home to surf <br/> photographers all over the world.</h3>
               <div>
-                <a href="#explore" className="mt-5 btn btn-light btn-lg explore-button">Explore</a>
+                <a href="#sign-up" className="mt-5 btn btn-light explore-button">Sign Up</a>
               </div>
             </div>
           </div>

@@ -29,9 +29,14 @@ nav {
   color: white;
 }
 
+.home-page-nav-opacity {
+  background-color: rgba(0, 0, 0, 0.274) !important;
+}
+
 .logo {
   width: 150px;
   position: fixed;
+  z-index: 2;
   left: 10%;
   top: 0.9rem;
 }
@@ -83,6 +88,7 @@ nav {
 .overlay-homepage {
   height: 100vh;
   width: 100%;
+  transition: 1s ease;
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 }
 
@@ -93,12 +99,12 @@ nav {
 }
 
 .img-homepage {
-  position: absolute;
+  position: fixed;
   height: 100vh;
   width: 100%;
   object-fit: cover;
   z-index: -1;
-  transition: 0.5s ease-in;
+  transition: 1s ease;
 }
 
 .hidden {
@@ -122,7 +128,10 @@ nav {
 }
 
 .explore-button {
-  width: 8.5rem;
+  width: 12rem;
+  font-size: 1.6em;
+  font-weight: 400;
+  border-radius: 3px;
 }
 
 /* explore page */
@@ -130,13 +139,14 @@ nav {
 /* people */
 
 .user-card-container {
-  width: 80%;
+  width: 400px;
   height: 90vh;
   margin: auto;
 }
 
 .user-card-list {
   margin-top: 8rem;
+  padding: 1em;
 }
 
 .members-title {
@@ -147,7 +157,7 @@ nav {
 
 .card-container {
   background-color: white;
-  width: 24rem;
+  width: 22rem;
   margin: 0 0 1em 1em;
   height: 8rem;
 }
@@ -227,6 +237,7 @@ nav {
   flex-wrap: wrap;
   justify-content: flex-start;
   transition: 1s linear;
+  margin-bottom: 5rem;
 }
 
 .landscape {
@@ -297,6 +308,7 @@ nav {
   position: relative;
   top: 10%;
   left: 10%;
+  width: 20rem;
 }
 
 .profile-image {
@@ -326,6 +338,74 @@ nav {
   text-decoration: underline;
 }
 
+/* signup page */
+
+.sign-up-image {
+  display: none;
+}
+
+.background-form-white {
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  z-index: -1;
+}
+
+.form-container {
+  height: 80vh;
+  width: 400px;
+  margin: auto;
+  margin-top: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-form {
+  margin-top: 0;
+  border-radius: 0.3em;
+}
+
+.form-group > input {
+  margin: 1em 0;
+  width: 20em;
+  height: 3em;
+  border: 0.2px solid rgba(34, 34, 34, 0.493);
+}
+
+.header-form {
+  font-weight: 400;
+}
+
+.signup-btn {
+  width: 100%;
+  background-color: #0b99ff;
+  color: white;
+  height: 3.3em;
+}
+
+.circles {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.circle {
+  height: 0.8em;
+  width: 0.8em;
+  margin: 0.05em;
+  border-radius: 50%;
+}
+
+.green-circle {
+  background-color: #7ca;
+}
+
+.blue-circle {
+  background-color: #0063dc;
+}
+
 @media screen and (min-width: 600px) {
   .landscape {
     width: 60%;
@@ -344,9 +424,44 @@ nav {
   .home-title {
     font-size: 3em;
   }
+
+  .background-form {
+    display: none;
+  }
+
+  .form-group > input {
+    margin: 0.5em 0;
+    width: 16em;
+    height: 2.8em;
+    font-size: 1em;
+  }
+
+  .signup-form {
+    padding: 1.5em 2em;
+    background-color: white;
+    border-radius: 2px;
+  }
+
+  .signup-btn {
+    margin-top: 2em;
+  }
+
+  .sign-up-image {
+    display: inline;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    object-fit: cover;
+    z-index: -1;
+  }
 }
 
 @media screen and (min-width: 700px) {
+  .user-card-container {
+    width: 800px;
+  }
+
   .landscape {
     width: 48%;
   }
@@ -366,6 +481,7 @@ nav {
     top: 45%;
     display: flex;
     flex-wrap: nowrap;
+    width: 35rem;
   }
 
   .landscape {
@@ -388,6 +504,12 @@ nav {
     font-size: 1.5em;
     font-weight: 300;
     display: inline;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .user-card-container {
+    width: 1200px;
   }
 }
 
