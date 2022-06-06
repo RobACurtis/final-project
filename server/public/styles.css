@@ -55,7 +55,7 @@ nav {
   font-size: 1.3em;
 }
 
-.log-in {
+.log-in-btn {
   height: 2em;
   font-size: 1em;
   padding-top: 3px;
@@ -414,6 +414,22 @@ nav {
 
 .blue-circle {
   background-color: #0063dc;
+}
+
+.sign-up-text {
+  font-size: 0.9em;
+  position: relative;
+  top: 1.3em;
+}
+
+.sign-up-link,
+.sign-up-link:hover,
+.sign-up-link:focus,
+.sign-up-link:active {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+  font-size: 0.9em;
 }
 
 @media screen and (min-width: 600px) {

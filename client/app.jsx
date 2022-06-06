@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from './pages/home';
+import jwtDecode from 'jwt-decode';
 import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
 import ProfilePage from './pages/profilePage';
@@ -15,6 +16,7 @@ export default class App extends React.Component {
       user: null
     };
     this.renderPage = this.renderPage.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
 
   componentDidMount() {
@@ -23,12 +25,21 @@ export default class App extends React.Component {
         route: parseRoute(window.location.hash)
       });
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? jwtDecode(token) : null;
+    this.setState({ user });
+  }
+
+  handleSignIn(result) {
+    const { user, token } = result;
+    window.localStorage.setItem('react-context-jwt', token);
+    this.setState({ user });
   }
 
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
-      return <Home list={homePageImages} />;
+      return <Home list={homePageImages} isLoggedIn={this.state.user} />;
     } else if (route.path === 'explore') {
       return <Explore active='photostream' />;
     } else if (route.path === 'explore-people') {
@@ -38,8 +49,8 @@ export default class App extends React.Component {
       return <ProfilePage userId={userId} />;
     } else if (route.path === 'sign-up') {
       return <SignUp />;
-    } else if (route.path === 'log-in') {
-      return <LogIn />;
+    } else if (route.path === 'sign-in') {
+      return <LogIn action={this.handleSignIn} />;
     }
   }
 

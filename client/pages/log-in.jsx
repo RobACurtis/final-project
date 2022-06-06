@@ -33,9 +33,10 @@ export default class LogIn extends React.Component {
       })
     };
 
-    fetch('/api/auth/sign-up', req)
+    fetch('/api/auth/sign-in', req)
       .then(res => res.json())
       .then(response => {
+        this.props.action(response);
         window.location.hash = '#';
       })
       .catch(err => console.error('Error:', err));
@@ -64,7 +65,8 @@ export default class LogIn extends React.Component {
             <div className="form-group">
               <input id='password' type="password" required className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
             </div>
-            <button type="submit" className="btn signup-btn">Sign Up</button>
+            <button type="submit" className="btn signup-btn">Log In</button>
+            <p className='sign-up-text'>Not a Surfr member? <a href="#sign-up" className='sign-up-link'> Sign Up</a> </p>
           </form>
         </div>
       </>

@@ -41,6 +41,9 @@ export default class Home extends React.Component {
         <img key={imageId} src={img} alt='surfing' className={`img-homepage ${opacity}`} />
       );
     });
+    const buttonText = this.props.isLoggedIn ? 'Explore' : 'Sign Up';
+    const href = this.props.isLoggedIn ? '#explore' : '#sign-up';
+    const subtext = this.props.isLoggedIn ? 'd-none' : '';
     return (
     <>
       <div id="home-page">
@@ -51,9 +54,9 @@ export default class Home extends React.Component {
           <div id="explore-text" className="d-flex center">
             <div className="center">
               <h1 className="home-title">Find your inspiration.</h1>
-              <h3 className="home-subtitle mt-4">Join the Surfr community, home to surf <br/> photographers all over the world.</h3>
+              <h3 className={`home-subtitle mt-4 ${subtext}`}>Join the Surfr community, home to surf <br/> photographers all over the world.</h3>
               <div>
-                <a href="#sign-up" className="mt-5 btn btn-light explore-button">Sign Up</a>
+                <a href={href} className="mt-5 btn btn-light explore-button">{buttonText}</a>
               </div>
             </div>
           </div>
