@@ -345,6 +345,38 @@ nav {
   text-decoration: underline;
 }
 
+/* user profile page */
+
+.edit-profile-image {
+  background-color: rgba(46, 46, 46, 0.5);
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  border: none;
+}
+
+.modal-close {
+  background-color: white;
+  border: none;
+  color: white;
+}
+
+.edit-profile-image-icon {
+  color: white;
+  font-size: 1.4em;
+  position: absolute;
+  top: 5em;
+  right: 1em;
+}
+
+.edit-profile-image:hover {
+  opacity: 100;
+  cursor: pointer;
+}
 /* signup page */
 
 .sign-up-image {

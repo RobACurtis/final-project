@@ -7,6 +7,7 @@ import parseRoute from './lib/parse-route';
 import ProfilePage from './pages/profilePage';
 import Navbar from './components/navbar';
 import AuthPage from './pages/authpage';
+import UserProfilePage from './pages/userProfilePage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -47,6 +48,8 @@ export default class App extends React.Component {
     } else if (route.path === 'photographer-profile') {
       const userId = route.params.get('userId');
       return <ProfilePage userId={userId} />;
+    } else if (route.path === 'user-profile' && this.state.user) {
+      return <UserProfilePage />;
     } else if (route.path === 'sign-up') {
       return <AuthPage />;
     } else if (route.path === 'sign-in') {
