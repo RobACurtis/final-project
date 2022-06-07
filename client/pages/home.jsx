@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    const { user } = this.context;
     let opacity;
     const images = this.props.list;
     let imageId = 0;
@@ -41,9 +43,9 @@ export default class Home extends React.Component {
         <img key={imageId} src={img} alt='surfing' className={`img-homepage ${opacity}`} />
       );
     });
-    const buttonText = this.props.isLoggedIn ? 'Explore' : 'Sign Up';
-    const href = this.props.isLoggedIn ? '#explore' : '#sign-up';
-    const subtext = this.props.isLoggedIn ? 'd-none' : '';
+    const buttonText = user ? 'Explore' : 'Sign Up';
+    const href = user ? '#explore' : '#sign-up';
+    const subtext = user ? 'd-none' : '';
     return (
     <>
       <div id="home-page">
@@ -66,3 +68,5 @@ export default class Home extends React.Component {
     );
   }
 }
+
+Home.contextType = AppContext;

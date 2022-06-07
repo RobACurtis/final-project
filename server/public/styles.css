@@ -29,7 +29,7 @@ nav {
   color: white;
 }
 
-.home-page-nav-opacity {
+.nav-opacity {
   background-color: rgba(0, 0, 0, 0.274) !important;
 }
 
@@ -68,8 +68,6 @@ nav {
   top: 3.8rem;
   width: 100%;
   margin-bottom: 7em;
-
-  /* position: sticky; */
 }
 
 .light-nav-list-item {
@@ -82,9 +80,8 @@ nav {
 
 .navbar-list {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
   position: relative;
+  top: 10%;
   left: 10%;
 }
 

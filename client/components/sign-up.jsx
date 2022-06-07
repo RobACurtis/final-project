@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Signup extends React.Component {
+export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,16 +51,7 @@ export default class Signup extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => res.json())
       .then(response => {
-        window.location.hash = '#log-in';
-        this.setState({
-          signup: false,
-          firstName: '',
-          lastName: '',
-          username: '',
-          password: '',
-          location: '',
-          email: ''
-        });
+        window.location.hash = '#sign-in';
       })
       .catch(err => console.error('Error:', err));
 
@@ -69,12 +60,6 @@ export default class Signup extends React.Component {
   render() {
     return (
       <>
-        <div id="home-page">
-          <div className="hero-image" >
-            <div className='background-form"'></div>
-            <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
-          </div>
-        </div>
         <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
             <div className='circles'>

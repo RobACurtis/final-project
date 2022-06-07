@@ -1,6 +1,7 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
-export default class LogIn extends React.Component {
+export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +37,7 @@ export default class LogIn extends React.Component {
     fetch('/api/auth/sign-in', req)
       .then(res => res.json())
       .then(response => {
-        this.props.action(response);
+        this.context.handleSignIn(response);
         window.location.hash = '#';
       })
       .catch(err => console.error('Error:', err));
@@ -46,19 +47,13 @@ export default class LogIn extends React.Component {
   render() {
     return (
       <>
-        <div id="home-page">
-          <div className="hero-image" >
-            <div className='background-form"'></div>
-            <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
-          </div>
-        </div>
         <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
             <div className='circles'>
               <div className='blue-circle circle'></div>
               <div className='green-circle circle'></div>
             </div>
-            <h5 className='header-form'>Log In</h5>
+            <h5 className='header-form'>Log in to Surfr</h5>
             <div className="form-group">
               <input id="username" type="username" required className="form-control" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
             </div>
@@ -73,3 +68,5 @@ export default class LogIn extends React.Component {
     );
   }
 }
+
+SignIn.contextType = AppContext;

@@ -1,12 +1,12 @@
 import React from 'react';
+import AppContext from './lib/app-context';
 import Home from './pages/home';
 import jwtDecode from 'jwt-decode';
 import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
 import ProfilePage from './pages/profilePage';
-import SignUp from './pages/sign-up';
 import Navbar from './components/navbar';
-import LogIn from './/pages/log-in';
+import AuthPage from './pages/authpage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
-      return <Home list={homePageImages} isLoggedIn={this.state.user} />;
+      return <Home list={homePageImages} />;
     } else if (route.path === 'explore') {
       return <Explore active='photostream' />;
     } else if (route.path === 'explore-people') {
@@ -48,17 +48,22 @@ export default class App extends React.Component {
       const userId = route.params.get('userId');
       return <ProfilePage userId={userId} />;
     } else if (route.path === 'sign-up') {
-      return <SignUp />;
+      return <AuthPage />;
     } else if (route.path === 'sign-in') {
-      return <LogIn action={this.handleSignIn} />;
+      return <AuthPage />;
     }
   }
 
   render() {
+    const { handleSignIn } = this;
+    const { route, user } = this.state;
+    const contextValue = { handleSignIn, route, user };
     return (
     <>
-      <Navbar isLoggedIn={this.state.user} />
+    <AppContext.Provider value = {contextValue}>
+      <Navbar />
       { this.renderPage() }
+    </AppContext.Provider>
     </>
     );
   }

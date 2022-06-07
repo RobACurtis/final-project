@@ -13,8 +13,7 @@ export default class Photostream extends React.Component {
 
   componentDidMount() {
     if (this.props.images) {
-      const images = this.props.images;
-      this.setState({ images });
+      this.setState({ images: null });
     } else {
       fetch('/api/explore-images')
         .then(res => res.json())
@@ -39,9 +38,9 @@ export default class Photostream extends React.Component {
   }
 
   render() {
-    if (!this.state.images) return null;
+    if (!this.state.images && !this.props.images) return null;
+    const imageList = this.state.images ? this.state.images : this.props.images;
 
-    const imageList = this.state.images;
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
       if (width > height) {
