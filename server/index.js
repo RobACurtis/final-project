@@ -6,6 +6,8 @@ const ClientError = require('./client-error');
 const db = require('./db');
 const argon2 = require('argon2'); // eslint-disable-line
 const jwt = require('jsonwebtoken');
+const uploadsMiddleware = require('./uploads-middleware');
+const authorizationMiddleware = require('./authorization-middleware');
 
 const app = express();
 const publicPath = path.join(__dirname, 'public');
@@ -133,6 +135,29 @@ app.post('/api/auth/sign-in', (req, res, next) => {
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });
+    })
+    .catch(err => next(err));
+});
+
+app.use(authorizationMiddleware);
+
+app.post('/api/auth/profile-image', uploadsMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  // const { imageUrl } = req.body;
+  const imageUrl = path.join('/images/profile-images/', req.file.filename);
+  const sql = `
+       update "users"
+       set "profileImageUrl" = $1
+       where "userId" = $2
+       returning "profileImageUrl",
+                "username",
+                "userId"
+  `;
+  const params = [imageUrl, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [image] = result.rows;
+      res.json(image);
     })
     .catch(err => next(err));
 });
