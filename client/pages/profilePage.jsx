@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/navbar';
 import Photostream from '../components/photostream';
 
 export default class ProfilePage extends React.Component {
@@ -42,33 +41,32 @@ export default class ProfilePage extends React.Component {
 
     return (
     <>
-      <Navbar />
-          <div className="profile-container">
-            <div className="overlay-coverphoto"></div>
-            <div className="coverphoto-container">
-              <img src={coverImageUrl} className="coverphoto" alt="shorebreak" />
-            </div>
-          <div className="profile-info">
-              <div>
-                <img src={profileImageUrl} className="profile-image" alt="profile picture" />
-              </div>
-              <div className="text-white">
-                <h1 className="profile-name">{`${firstName} ${lastName}`}</h1>
-                <p className='profile-subtext' >{location}</p>
-              <a target="_blank" rel="noopener noreferrer" href={emailHref} className='profile-subtext email'>
-                {email}
-                </a>
-              </div>
-            </div>
+      <div className="profile-container">
+        <div className="overlay-coverphoto"></div>
+        <div className="coverphoto-container">
+          <img src={coverImageUrl} className="coverphoto" alt="shorebreak" />
+        </div>
+      <div className="profile-info">
+          <div>
+            <img src={profileImageUrl} className="profile-image" alt="profile picture" />
           </div>
-        <nav className="navbar bg-light py-3 shadow-sm profile-navbar-light position-sticky">
-          <ul className="navbar-list">
-            <li className="nav-item light-nav-list-item active-nav">
-              <p id='photostream'> Photostream</p>
-            </li>
-          </ul>
-        </nav>
-        <Photostream images={images}/>
+          <div className="text-white">
+            <h1 className="profile-name">{`${firstName} ${lastName}`}</h1>
+            <p className='profile-subtext' >{location}</p>
+          <a target="_blank" rel="noopener noreferrer" href={emailHref} className='profile-subtext email'>
+            {email}
+            </a>
+          </div>
+        </div>
+      </div>
+    <nav className="navbar bg-light py-3 shadow-sm profile-navbar-light position-sticky">
+      <ul className="navbar-list">
+        <li className="nav-item light-nav-list-item active-nav">
+          <p id='photostream'> Photostream</p>
+        </li>
+      </ul>
+    </nav>
+    <Photostream images={images}/>
     </>
     );
   }

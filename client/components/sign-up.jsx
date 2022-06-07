@@ -1,8 +1,6 @@
 import React from 'react';
-import Navbar from '../components/navbar';
 
 export default class SignUp extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -53,22 +51,16 @@ export default class SignUp extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => res.json())
       .then(response => {
-        window.location.hash = '#';
+        window.location.hash = '#sign-in';
       })
       .catch(err => console.error('Error:', err));
+
   }
 
   render() {
     return (
       <>
-      <Navbar hidden="d-none" />
-      <div id="home-page">
-        <div className="hero-image" >
-          <div className='background-form"'></div>
-          <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
-        </div>
-      </div>
-      <div className='form-container'>
+        <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
             <div className='circles'>
               <div className='blue-circle circle'></div>
@@ -94,8 +86,9 @@ export default class SignUp extends React.Component {
               <input id='email' type="email" required className="form-control" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
             </div>
             <button type="submit" className="btn signup-btn">Sign Up</button>
+            <p className='sign-up-text'>Already a Surfr member? <a href="#sign-in" className='sign-up-link'> Log In</a> </p>
           </form>
-      </div>
+        </div>
       </>
     );
   }

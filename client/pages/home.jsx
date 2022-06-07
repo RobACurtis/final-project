@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/navbar';
+import AppContext from '../lib/app-context';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -25,6 +25,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    const { user } = this.context;
     let opacity;
     const images = this.props.list;
     let imageId = 0;
@@ -42,9 +43,11 @@ export default class Home extends React.Component {
         <img key={imageId} src={img} alt='surfing' className={`img-homepage ${opacity}`} />
       );
     });
+    const buttonText = user ? 'Explore' : 'Sign Up';
+    const href = user ? '#explore' : '#sign-up';
+    const subtext = user ? 'd-none' : '';
     return (
     <>
-      <Navbar opacity='home-page-nav-opacity' />
       <div id="home-page">
         <div className="hero-image">
         {imgList}
@@ -53,9 +56,9 @@ export default class Home extends React.Component {
           <div id="explore-text" className="d-flex center">
             <div className="center">
               <h1 className="home-title">Find your inspiration.</h1>
-              <h3 className="home-subtitle mt-4">Join the Surfr community, home to surf <br/> photographers all over the world.</h3>
+              <h3 className={`home-subtitle mt-4 ${subtext}`}>Join the Surfr community, home to surf <br/> photographers all over the world.</h3>
               <div>
-                <a href="#sign-up" className="mt-5 btn btn-light explore-button">Sign Up</a>
+                <a href={href} className="mt-5 btn btn-light explore-button">{buttonText}</a>
               </div>
             </div>
           </div>
@@ -65,3 +68,5 @@ export default class Home extends React.Component {
     );
   }
 }
+
+Home.contextType = AppContext;
