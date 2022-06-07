@@ -69,4 +69,4 @@ export default class App extends React.Component {
   }
 }
 
-const homePageImages = ['/images/example3.jpg', '/images/example5.jpg', '/images/example9.jpg', '/images/example7.jpg'];
+const homePageImages = ['/images/gallery-images/example3.jpg', '/images/gallery-images/example5.jpg', '/images/gallery-images/example9.jpg', '/images/gallery-images/example7.jpg'];
