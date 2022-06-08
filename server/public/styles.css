@@ -359,18 +359,18 @@ nav {
   border: none;
 }
 
-.modal-close {
-  background-color: white;
-  border: none;
-  color: white;
-}
-
 .edit-profile-image-icon {
   color: white;
   font-size: 1.4em;
   position: absolute;
   top: 5em;
   right: 1em;
+}
+
+.close {
+  border: none;
+  color: black;
+  background-color: white;
 }
 
 .edit-profile-image:hover {
@@ -459,6 +459,51 @@ nav {
   text-decoration: underline;
   color: blue;
   font-size: 0.9em;
+}
+
+/* upload image modal component  */
+.close-button-upload {
+  position: fixed;
+  top: 12%;
+  right: 5%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  z-index: 4;
+  padding: 0;
+}
+.upload-form {
+  display: flex;
+  background-color: white;
+  height: 40vh;
+  z-index: 10;
+}
+.fa-window-close {
+  font-size: 20px;
+  color: white;
+}
+
+.form-container {
+  margin: auto;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 3%;
+  z-index: 2;
+}
+
+.img-expand {
+  max-height: 75vh;
+  max-width: 90%;
+}
+
+.upload-img-modal-overlay {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-image: linear-gradient(rgba(52, 58, 64, 90%), rgba(52, 58, 64, 90%));
 }
 
 @media screen and (min-width: 600px) {

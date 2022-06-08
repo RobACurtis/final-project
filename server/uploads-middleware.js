@@ -1,7 +1,7 @@
 const path = require('path');
 const multer = require('multer');
 
-const imagesDirectory = path.join(__dirname, 'public/images');
+const imagesDirectory = path.join(__dirname, 'public/images/profile-images/');
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {

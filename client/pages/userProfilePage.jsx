@@ -1,19 +1,51 @@
 import React from 'react';
 import Photostream from '../components/photostream';
 import AppContext from '../lib/app-context';
-
+import jwtDecode from 'jwt-decode';
+import ImageUploadModal from '../components/image-upload'
 
 export default class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null,
-      imageUrls: []
+      imageUrls: [],
+      profileImageModalVisible: false
     };
+    this.toggleProfileImageModal = this.toggleProfileImageModal.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
   }
 
+    toggleProfileImageModal(e) {
+      this.setState({profileImageModalVisible: !this.state.profileImageModalVisible});
+    }
+
+    updateProfile(){
+      const userId = Number(this.context.user.userId);
+      fetch('/api/photographer-profile/' + userId)
+        .then(res => res.json())
+        .then(user => {
+          const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
+          const imageUrls = photos.map(imageUrl => {
+            return { imageUrl };
+          });
+          this.setState({
+            user: {
+              firstName,
+              lastName,
+              email,
+              location,
+              coverImageUrl,
+              profileImageUrl,
+              userId
+            },
+            imageUrls
+          });
+        });
+    }
+
   componentDidMount() {
-    const userId =  Number(this.context.user.userId);
+    const userId = Number(this.context.user.userId);
     fetch('/api/photographer-profile/' + userId)
       .then(res => res.json())
       .then(user => {
@@ -21,7 +53,6 @@ export default class UserProfilePage extends React.Component {
         const imageUrls = photos.map(imageUrl => {
           return { imageUrl };
         });
-
         this.setState({
           user: {
             firstName,
@@ -47,25 +78,9 @@ export default class UserProfilePage extends React.Component {
     if (this.state.profilePhotoModal) {
       hidden = '';
     }
-
     return (
       <>
-        <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">Upload Photo</h5>
-                <button type="button" className="" data-dismiss="modal" aria-label="Close">
-                <i id="close-modal" className="fa fa-window-close modal-close"></i>
-                </button>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ImageUploadModal toggle={this.toggleProfileImageModal} update={this.updateProfile} display={this.state.profileImageModalVisible}/>
         <div className="profile-container">
           <div className="overlay-coverphoto"></div>
           <div className="coverphoto-container">
@@ -74,7 +89,7 @@ export default class UserProfilePage extends React.Component {
           <div className="profile-info">
             <div>
               <img src={profileImageUrl} className="profile-image" alt="profile picture" />
-              <button type="button" className='edit-profile-image' data-toggle="modal" data-target="#exampleModalCenter">
+              <button type="button" className='edit-profile-image' onClick={this.toggleProfileImageModal}>
                   <i className="fa-solid fa-pen edit-profile-image-icon"></i>
                 </button>
             </div>

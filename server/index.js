@@ -143,7 +143,6 @@ app.use(authorizationMiddleware);
 
 app.post('/api/auth/profile-image', uploadsMiddleware, (req, res, next) => {
   const { userId } = req.user;
-  // const { imageUrl } = req.body;
   const imageUrl = path.join('/images/profile-images/', req.file.filename);
   const sql = `
        update "users"

@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from './lib/app-context';
+import Redirect from './components/redirect';
 import Home from './pages/home';
 import jwtDecode from 'jwt-decode';
 import Explore from './pages/explore';
@@ -14,6 +15,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
+      isAuthorizing: true,
       user: null
     };
     this.renderPage = this.renderPage.bind(this);
@@ -28,7 +30,7 @@ export default class App extends React.Component {
     });
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? jwtDecode(token) : null;
-    this.setState({ user });
+    this.setState({ user, isAuthorizing: false });
   }
 
   handleSignIn(result) {
@@ -38,6 +40,8 @@ export default class App extends React.Component {
   }
 
   renderPage() {
+
+
     const { route } = this.state;
     if (route.path === '') {
       return <Home list={homePageImages} />;
@@ -48,8 +52,12 @@ export default class App extends React.Component {
     } else if (route.path === 'photographer-profile') {
       const userId = route.params.get('userId');
       return <ProfilePage userId={userId} />;
-    } else if (route.path === 'user-profile' && this.state.user) {
-      return <UserProfilePage />;
+    } else if (route.path === 'user-profile') {
+        if (this.state.user) {
+          return <UserProfilePage />
+        } else {
+        return <Redirect to="sign-in" />;
+        }
     } else if (route.path === 'sign-up') {
       return <AuthPage />;
     } else if (route.path === 'sign-in') {
@@ -58,6 +66,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.state.isAuthorizing) return null;
     const { handleSignIn } = this;
     const { route, user } = this.state;
     const contextValue = { handleSignIn, route, user };
