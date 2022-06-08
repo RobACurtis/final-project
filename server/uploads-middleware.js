@@ -4,8 +4,8 @@ let imagesDirectory = path.join(__dirname, 'public/images/profile-images/');
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    if (req.url === 'api/auth/gallery-images') {
-      imagesDirectory = path.join(__dirname, 'public/images/profile-images/');
+    if (req.url === '/api/auth/gallery-images') {
+      imagesDirectory = path.join(__dirname, 'public/images/gallery-images/');
     }
     callback(null, imagesDirectory);
   },

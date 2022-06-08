@@ -170,7 +170,7 @@ app.post('/api/auth/gallery-images', uploadsMiddleware, (req, res, next) => {
        returning "imageUrl",
                  "userId"
   `;
-  const params = [imageUrl, userId];
+  const params = [userId, imageUrl];
   db.query(sql, params)
     .then(result => {
       const [image] = result.rows;

@@ -378,6 +378,26 @@ nav {
   cursor: pointer;
 }
 
+.upload-images-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  font-weight: 300;
+  color: #3a3a3a;
+  position: relative;
+}
+
+.upload-text {
+  display: none;
+}
+
+.fa-images {
+  position: absolute;
+  bottom: 0.3em;
+  left: -2.1em;
+  font-size: 1.3em;
+  color: #807e7e;
+}
+
 /* upload image modal component  */
 
 .upload-form {
@@ -514,6 +534,19 @@ nav {
 }
 
 @media screen and (min-width: 600px) {
+  .upload-images-button {
+    margin: 0 4em 2em 0;
+  }
+
+  .upload-text {
+    display: inline;
+  }
+
+  .fa-images {
+    top: 0.2em;
+    left: -1.1em;
+  }
+
   .close-button {
     top: 18%;
   }
