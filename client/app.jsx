@@ -48,8 +48,12 @@ export default class App extends React.Component {
     } else if (route.path === 'explore-people') {
       return <Explore active='people'/>;
     } else if (route.path === 'photographer-profile') {
-      const userId = route.params.get('userId');
-      return <ProfilePage userId={userId} />;
+      const userId = Number(route.params.get('userId'));
+      if (this.state.user && userId === this.state.user.userId) {
+        return <Redirect to="user-profile" />;
+      } else {
+        return <ProfilePage userId={userId} />;
+      }
     } else if (route.path === 'user-profile') {
       if (this.state.user) {
         return <UserProfilePage />;

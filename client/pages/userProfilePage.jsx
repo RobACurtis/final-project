@@ -46,7 +46,7 @@ export default class UserProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    const userId = Number(this.context.user.userId);
+    const userId = this.context.user.userId;
     fetch('/api/photographer-profile/' + userId)
       .then(res => res.json())
       .then(user => {
