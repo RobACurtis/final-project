@@ -23,16 +23,14 @@ export default class ImageUploadModal extends React.Component {
     fetch('/api/auth/profile-image', req)
       .then(res => res.json())
       .then(response => {
-        console.log('response body', response);
         this.fileInputRef.current.value = null;
         this.props.update();
         this.props.toggle();
       })
       .catch(err => console.error('Error:', err));
-    }
+  }
 
-  render () {
-    console.log(this.props)
+  render() {
     let hidden;
     if (this.props.display) {
       hidden = '';
@@ -41,12 +39,14 @@ export default class ImageUploadModal extends React.Component {
     }
     return (
     <div id="img-expand" className={hidden}>
-          <div className='upload-img-modal-overlay'></div>
-        <div className='d-flex form-container center'>
-          <button className='close-button-upload' onClick={this.props.toggle}>
-            <i id="close-modal" className="fa fa-window-close"></i>
-          </button>
+        <div className='upload-img-modal-overlay'></div>
+        <div className='upload-form-container'>
+
           <div className='upload-form'>
+            <button className='upload-close' onClick={this.props.toggle}>
+              <i id="close-modal" className="fa fa-window-close text-black"></i>
+            </button>
+            <h3>Upload Photos</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="d-flex justify-content-between align-items-center">
                 <input
@@ -55,7 +55,7 @@ export default class ImageUploadModal extends React.Component {
                   name="image"
                   ref={this.fileInputRef}
                   accept=".png, .jpg, .jpeg, .gif" />
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn upload-button">
                   Upload
                 </button>
               </div>
