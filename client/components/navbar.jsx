@@ -20,7 +20,7 @@ export default class Navbar extends React.Component {
       <a href="#"><img className="logo" src="/logo.svg" alt="surfer logo" /> </a>
         <div className='d-flex align-items-end explore-link'>
         <a href="#explore" className={`explore-link mx-4 mb-1 ${hideExploreNavigation}`}>Explore</a>
-        <a href={`#photographer-profile?userId=${userId}`} className={`explore-link mx-3 mt-2 icon ${hideProfileIcon}`}>
+            <a href={`#user-profile`} className={`explore-link mx-3 mt-2 icon ${hideProfileIcon}`}>
           <i className="fa fa-user"></i>
         </a>
         <a href="#sign-in" className={`btn btn-light log-in-btn ${hideLogInButton}`}>Log In </a>

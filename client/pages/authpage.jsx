@@ -9,7 +9,7 @@ export default class AuthPage extends React.Component {
         <div id="home-page">
           <div className="hero-image" >
             <div className='background-form"'></div>
-            <img src='/images/example9.jpg' alt='surfing' className='sign-up-image' />
+            <img src='/images/gallery-images/example9.jpg' alt='surfing' className='sign-up-image' />
           </div>
         </div>
         <AuthPageComponents />

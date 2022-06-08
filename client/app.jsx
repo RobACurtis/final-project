@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from './lib/app-context';
+import Redirect from './components/redirect';
 import Home from './pages/home';
 import jwtDecode from 'jwt-decode';
 import Explore from './pages/explore';
@@ -7,12 +8,14 @@ import parseRoute from './lib/parse-route';
 import ProfilePage from './pages/profilePage';
 import Navbar from './components/navbar';
 import AuthPage from './pages/authpage';
+import UserProfilePage from './pages/userProfilePage';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
+      isAuthorizing: true,
       user: null
     };
     this.renderPage = this.renderPage.bind(this);
@@ -27,7 +30,7 @@ export default class App extends React.Component {
     });
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? jwtDecode(token) : null;
-    this.setState({ user });
+    this.setState({ user, isAuthorizing: false });
   }
 
   handleSignIn(result) {
@@ -45,8 +48,18 @@ export default class App extends React.Component {
     } else if (route.path === 'explore-people') {
       return <Explore active='people'/>;
     } else if (route.path === 'photographer-profile') {
-      const userId = route.params.get('userId');
-      return <ProfilePage userId={userId} />;
+      const userId = Number(route.params.get('userId'));
+      if (this.state.user && userId === this.state.user.userId) {
+        return <Redirect to="user-profile" />;
+      } else {
+        return <ProfilePage userId={userId} />;
+      }
+    } else if (route.path === 'user-profile') {
+      if (this.state.user) {
+        return <UserProfilePage />;
+      } else {
+        return <Redirect to="sign-in" />;
+      }
     } else if (route.path === 'sign-up') {
       return <AuthPage />;
     } else if (route.path === 'sign-in') {
@@ -55,6 +68,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.state.isAuthorizing) return null;
     const { handleSignIn } = this;
     const { route, user } = this.state;
     const contextValue = { handleSignIn, route, user };
@@ -69,4 +83,4 @@ export default class App extends React.Component {
   }
 }
 
-const homePageImages = ['/images/example3.jpg', '/images/example5.jpg', '/images/example9.jpg', '/images/example7.jpg'];
+const homePageImages = ['/images/gallery-images/example3.jpg', '/images/gallery-images/example5.jpg', '/images/gallery-images/example9.jpg', '/images/gallery-images/example7.jpg'];

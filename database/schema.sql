@@ -15,8 +15,8 @@ CREATE TABLE "users" (
 	"email" TEXT NOT NULL,
 	"location" TEXT NOT NULL,
   "createdAt" timestamp with time zone NOT NULL,
-	"profileImageUrl" TEXT NOT NULL DEFAULT '/profileImage.jpg',
-	"coverImageUrl" TEXT NOT NULL DEFAULT '/coverImage.jpg',
+	"profileImageUrl" TEXT NOT NULL DEFAULT '/images/profile-images/profileImage.jpg',
+	"coverImageUrl" TEXT NOT NULL DEFAULT '/images/profile-images/coverImage.jpg',
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE

@@ -345,6 +345,90 @@ nav {
   text-decoration: underline;
 }
 
+/* user profile page */
+
+.edit-profile-image {
+  background-color: rgba(46, 46, 46, 0.5);
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  border: none;
+}
+
+.edit-profile-image-icon {
+  color: white;
+  font-size: 1.4em;
+  position: absolute;
+  top: 5em;
+  right: 1em;
+}
+
+.close {
+  border: none;
+  color: black;
+  background-color: white;
+}
+
+.edit-profile-image:hover {
+  opacity: 100;
+  cursor: pointer;
+}
+
+/* upload image modal component  */
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: none;
+  text-align: center;
+  justify-content: space-between;
+  background-color: white;
+  height: 20vh;
+  width: 90%;
+  border-radius: 3px;
+  padding: 1.5em;
+  position: relative;
+}
+
+.upload-button {
+  background-color: #0b99ff;
+  width: 7em;
+  color: white;
+}
+
+.upload-form-container {
+  margin: auto;
+  width: 90%;
+  height: 100vh;
+  position: absolute;
+  top: 3%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-close {
+  position: absolute;
+  right: 1em;
+  top: 0.5em;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.upload-img-modal-overlay {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-image: linear-gradient(rgba(52, 58, 64, 90%), rgba(52, 58, 64, 90%));
+}
+
 /* signup page */
 
 .sign-up-image {
@@ -430,6 +514,10 @@ nav {
 }
 
 @media screen and (min-width: 600px) {
+  .close-button {
+    top: 18%;
+  }
+
   .landscape {
     width: 60%;
     flex-grow: 2;
@@ -481,6 +569,15 @@ nav {
 }
 
 @media screen and (min-width: 700px) {
+  .img-expand-container {
+    top: 8%;
+  }
+
+  .upload-form {
+    height: 10em;
+    width: 45%;
+  }
+
   .user-card-container {
     width: 800px;
   }
