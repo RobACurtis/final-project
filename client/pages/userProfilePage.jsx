@@ -1,8 +1,7 @@
 import React from 'react';
 import Photostream from '../components/photostream';
 import AppContext from '../lib/app-context';
-import jwtDecode from 'jwt-decode';
-import ImageUploadModal from '../components/image-upload'
+import ImageUploadModal from '../components/image-upload';
 
 export default class UserProfilePage extends React.Component {
   constructor(props) {
@@ -16,33 +15,35 @@ export default class UserProfilePage extends React.Component {
     this.updateProfile = this.updateProfile.bind(this);
   }
 
-    toggleProfileImageModal(e) {
-      this.setState({profileImageModalVisible: !this.state.profileImageModalVisible});
-    }
+  toggleProfileImageModal(e) {
+    this.setState({
+      profileImageModalVisible: !this.state.profileImageModalVisible
+    });
+  }
 
-    updateProfile(){
-      const userId = Number(this.context.user.userId);
-      fetch('/api/photographer-profile/' + userId)
-        .then(res => res.json())
-        .then(user => {
-          const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
-          const imageUrls = photos.map(imageUrl => {
-            return { imageUrl };
-          });
-          this.setState({
-            user: {
-              firstName,
-              lastName,
-              email,
-              location,
-              coverImageUrl,
-              profileImageUrl,
-              userId
-            },
-            imageUrls
-          });
+  updateProfile() {
+    const userId = Number(this.context.user.userId);
+    fetch('/api/photographer-profile/' + userId)
+      .then(res => res.json())
+      .then(user => {
+        const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
+        const imageUrls = photos.map(imageUrl => {
+          return { imageUrl };
         });
-    }
+        this.setState({
+          user: {
+            firstName,
+            lastName,
+            email,
+            location,
+            coverImageUrl,
+            profileImageUrl,
+            userId
+          },
+          imageUrls
+        });
+      });
+  }
 
   componentDidMount() {
     const userId = Number(this.context.user.userId);
@@ -73,14 +74,9 @@ export default class UserProfilePage extends React.Component {
     const images = this.state.imageUrls;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
     const emailHref = `mailto:${email}`;
-
-    let hidden = 'd-none';
-    if (this.state.profilePhotoModal) {
-      hidden = '';
-    }
     return (
       <>
-        <ImageUploadModal toggle={this.toggleProfileImageModal} update={this.updateProfile} display={this.state.profileImageModalVisible}/>
+      <ImageUploadModal toggle={this.toggleProfileImageModal} update={this.updateProfile} display={this.state.profileImageModalVisible}/>
         <div className="profile-container">
           <div className="overlay-coverphoto"></div>
           <div className="coverphoto-container">
@@ -114,6 +110,5 @@ export default class UserProfilePage extends React.Component {
     );
   }
 }
-
 
 UserProfilePage.contextType = AppContext;

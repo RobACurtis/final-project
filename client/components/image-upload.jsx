@@ -19,7 +19,6 @@ export default class ImageUploadModal extends React.Component {
       },
       body: formData
     };
-
     fetch('/api/auth/profile-image', req)
       .then(res => res.json())
       .then(response => {
@@ -41,7 +40,6 @@ export default class ImageUploadModal extends React.Component {
     <div id="img-expand" className={hidden}>
         <div className='upload-img-modal-overlay'></div>
         <div className='upload-form-container'>
-
           <div className='upload-form'>
             <button className='upload-close' onClick={this.props.toggle}>
               <i id="close-modal" className="fa fa-window-close text-black"></i>
@@ -54,7 +52,7 @@ export default class ImageUploadModal extends React.Component {
                   type="file"
                   name="image"
                   ref={this.fileInputRef}
-                  accept=".png, .jpg, .jpeg, .gif" />
+                  accept=".png, .jpg, .jpeg" />
                 <button type="submit" className="btn upload-button">
                   Upload
                 </button>

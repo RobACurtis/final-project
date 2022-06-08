@@ -40,8 +40,6 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-
-
     const { route } = this.state;
     if (route.path === '') {
       return <Home list={homePageImages} />;
@@ -53,11 +51,11 @@ export default class App extends React.Component {
       const userId = route.params.get('userId');
       return <ProfilePage userId={userId} />;
     } else if (route.path === 'user-profile') {
-        if (this.state.user) {
-          return <UserProfilePage />
-        } else {
+      if (this.state.user) {
+        return <UserProfilePage />;
+      } else {
         return <Redirect to="sign-in" />;
-        }
+      }
     } else if (route.path === 'sign-up') {
       return <AuthPage />;
     } else if (route.path === 'sign-in') {
