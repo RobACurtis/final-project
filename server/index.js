@@ -161,6 +161,24 @@ app.post('/api/auth/profile-image', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/auth/gallery-images', uploadsMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const imageUrl = path.join('/images/gallery-images/', req.file.filename);
+  const sql = `
+       insert into "photos" ("userId", "imageUrl", "createdAt")
+       values ($1, $2, now())
+       returning "imageUrl",
+                 "userId"
+  `;
+  const params = [imageUrl, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [image] = result.rows;
+      res.json(image);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
