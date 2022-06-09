@@ -80,7 +80,7 @@ export default class UserPhotostream extends React.Component {
 
     return (
       <>
-      <DeleteModal display={showModal} toggle={this.deleteModal} update={this.updateComponent}/>
+      <DeleteModal img={this.state.modalImg} display={showModal} toggle={this.deleteModal} update={this.updateComponent}/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>
           <div className='d-flex img-expand-container center'>

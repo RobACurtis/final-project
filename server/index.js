@@ -192,6 +192,35 @@ app.post('/api/auth/gallery-images', galleryUploadMiddleware, (req, res, next) =
     .catch(err => next(err));
 });
 
+app.delete('/api/auth/delete-image/:photoId', (req, res, next) => {
+  const photoId = Number(req.params.photoId);
+  if (photoId < 0 || !Number.isInteger(photoId)) {
+    res.status(400).send({ error: 'gradeId must be a positive integer' });
+  } else {
+    const { userId } = req.user;
+    const sql = `
+        delete from "photos"
+        where "photoId" = $1
+        and "userId" = $2
+        returning *;
+    `;
+    const params = [photoId, userId];
+    db.query(sql, params)
+      .then(result => {
+        const photo = result.rows;
+        if (photo[0] === undefined) {
+          res.status(404).json({ error: 'Cannot find photoId matching UserId' });
+        } else {
+          res.status(201).json(photo);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'an unexpected error occured.' });
+      });
+  }
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

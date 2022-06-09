@@ -10,15 +10,13 @@ export default class DeleteModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const token = window.localStorage.getItem('react-context-jwt');
-    const formData = new FormData();
     const req = {
       method: 'DELETE',
       headers: {
         'X-Access-Token': token
-      },
-      body: formData
+      }
     };
-    fetch('/api/auth/profile-image', req)
+    fetch(`/api/auth/delete-image/${this.props.img.id}`, req)
       .then(res => res.json())
       .then(response => {
         this.fileInputRef.current.value = null;
