@@ -2,6 +2,7 @@ import React from 'react';
 import Photostream from '../components/photostream';
 import AppContext from '../lib/app-context';
 import ImageUploadModal from '../components/image-upload';
+import GalleryImageUploadModal from '../components/gallery-upload';
 
 export default class UserProfilePage extends React.Component {
   constructor(props) {
@@ -9,15 +10,23 @@ export default class UserProfilePage extends React.Component {
     this.state = {
       user: null,
       imageUrls: [],
-      profileImageModalVisible: false
+      profileImageModalVisible: false,
+      uploadGalleryImageModal: false
     };
     this.toggleProfileImageModal = this.toggleProfileImageModal.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
+    this.toggleUploadGalleryImageModal = this.toggleUploadGalleryImageModal.bind(this);
   }
 
   toggleProfileImageModal(e) {
     this.setState({
       profileImageModalVisible: !this.state.profileImageModalVisible
+    });
+  }
+
+  toggleUploadGalleryImageModal(e) {
+    this.setState({
+      uploadGalleryImageModal: !this.state.uploadGalleryImageModal
     });
   }
 
@@ -77,6 +86,7 @@ export default class UserProfilePage extends React.Component {
     return (
       <>
       <ImageUploadModal toggle={this.toggleProfileImageModal} update={this.updateProfile} display={this.state.profileImageModalVisible}/>
+      <GalleryImageUploadModal toggle={this.toggleUploadGalleryImageModal} update={this.updateProfile} display={this.state.uploadGalleryImageModal}/>
         <div className="profile-container">
           <div className="overlay-coverphoto"></div>
           <div className="coverphoto-container">
@@ -104,6 +114,7 @@ export default class UserProfilePage extends React.Component {
               <p id='photostream'> Photostream</p>
             </li>
           </ul>
+          <button className='upload-images-button' onClick={this.toggleUploadGalleryImageModal}><i className="fa-solid fa-images"></i> <span className='upload-text'>Upload Images</span></button>
         </nav>
         <Photostream images={images} />
       </>

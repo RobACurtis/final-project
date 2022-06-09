@@ -7,6 +7,7 @@ const db = require('./db');
 const argon2 = require('argon2'); // eslint-disable-line
 const jwt = require('jsonwebtoken');
 const uploadsMiddleware = require('./uploads-middleware');
+const galleryUploadMiddleware = require('./gallery-upload-middleware');
 const authorizationMiddleware = require('./authorization-middleware');
 
 const app = express();
@@ -25,6 +26,8 @@ app.get('/api/explore-images', (req, res, next) => {
   const sql = `
        select "imageUrl"
        from "photos"
+       order by "createdAt" desc
+       limit 14
   `;
   db.query(sql)
     .then(result => res.json(result.rows))
@@ -58,11 +61,12 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       "users"."location",
       "users"."coverImageUrl",
       "users"."profileImageUrl",
-      array_agg("photos"."imageUrl") as "photos"
+      array_agg("photos"."imageUrl" order by "photos"."createdAt" desc) as "photos"
       from "users"
       left join "photos" using ("userId")
       where "users"."userId" = $1
       group by "users"."userId"
+
   `;
 
   const params = [userId];
@@ -153,6 +157,32 @@ app.post('/api/auth/profile-image', uploadsMiddleware, (req, res, next) => {
                 "userId"
   `;
   const params = [imageUrl, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [image] = result.rows;
+      res.json(image);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/auth/gallery-images', galleryUploadMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const imageUrls = req.files.map(file => {
+    return path.join('/images/gallery-images/', file.filename);
+  });
+
+  const sql = `
+    with "newImages" as (
+      select unnest($1::text[]) as "imageUrl"
+    )
+       insert into "photos" ("userId", "imageUrl", "createdAt")
+       select $2,
+       "newImages"."imageUrl",
+         now()
+        from "newImages"
+        returning *
+`;
+  const params = [imageUrls, userId];
   db.query(sql, params)
     .then(result => {
       const [image] = result.rows;

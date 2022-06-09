@@ -1,6 +1,6 @@
 const path = require('path');
 const multer = require('multer');
-const imagesDirectory = path.join(__dirname, 'public/images/profile-images/');
+const imagesDirectory = path.join(__dirname, 'public/images/gallery-images/');
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -13,6 +13,6 @@ const storage = multer.diskStorage({
   }
 });
 
-const uploadsMiddleware = multer({ storage }).single('image');
+const uploadMultiplesMiddleware = multer({ storage }).array('image');
 
-module.exports = uploadsMiddleware;
+module.exports = uploadMultiplesMiddleware;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class ImageUploadModal extends React.Component {
+export default class GalleryImageUploadModal extends React.Component {
   constructor(props) {
     super(props);
     this.fileInputRef = React.createRef();
@@ -9,9 +9,12 @@ export default class ImageUploadModal extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = window.localStorage.getItem('react-context-jwt');
     const formData = new FormData();
-    formData.append('image', this.fileInputRef.current.files[0]);
+    for (let i = 0; i < this.fileInputRef.current.files.length; i++) {
+      formData.append('image', this.fileInputRef.current.files[i]);
+    }
+    const token = window.localStorage.getItem('react-context-jwt');
+
     const req = {
       method: 'POST',
       headers: {
@@ -19,7 +22,7 @@ export default class ImageUploadModal extends React.Component {
       },
       body: formData
     };
-    fetch('/api/auth/profile-image', req)
+    fetch('/api/auth/gallery-images', req)
       .then(res => res.json())
       .then(response => {
         this.fileInputRef.current.value = null;
@@ -37,18 +40,20 @@ export default class ImageUploadModal extends React.Component {
       hidden = 'd-none';
     }
     return (
-    <div id="img-expand" className={hidden}>
+      <div id="img-expand" className={hidden}>
         <div className='upload-img-modal-overlay'></div>
         <div className='upload-form-container'>
           <div className='upload-form'>
             <button className='upload-close' onClick={this.props.toggle}>
               <i id="close-modal" className="fa fa-window-close text-black"></i>
             </button>
-            <h3>Edit Profile Photo</h3>
+            <h3>Upload Photos</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="d-flex justify-content-between align-items-center">
                 <input
-                  required
+                  multiple
+                  className='form-control'
+                  id='formFileMultiple'
                   type="file"
                   name="image"
                   ref={this.fileInputRef}
@@ -59,8 +64,8 @@ export default class ImageUploadModal extends React.Component {
               </div>
             </form>
           </div>
-          </div>
         </div>
+      </div>
     );
   }
 }

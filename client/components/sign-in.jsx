@@ -6,7 +6,8 @@ export default class SignIn extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      invalidPassword: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -37,14 +38,23 @@ export default class SignIn extends React.Component {
     fetch('/api/auth/sign-in', req)
       .then(res => res.json())
       .then(response => {
-        this.context.handleSignIn(response);
-        window.location.hash = '#';
+        if (!response.token) {
+          this.setState({
+            username: '',
+            password: '',
+            invalidPassword: true
+          });
+        } else {
+          this.context.handleSignIn(response);
+          window.location.hash = '#';
+        }
       })
       .catch(err => console.error('Error:', err));
-
   }
 
   render() {
+    const invalidPassword = this.state.invalidPassword ? 'invalid-password' : '';
+    const invalidPasswordText = this.state.invalidPassword ? 'invalid-password-text' : 'd-none';
     return (
       <>
         <div className='form-container'>
@@ -58,7 +68,8 @@ export default class SignIn extends React.Component {
               <input id="username" type="username" required className="form-control" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id='password' type="password" required className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+              <input id='password' type="password" required className={`form-control ${invalidPassword}`} placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+              <p className={`${invalidPasswordText}`}>Invalid password</p>
             </div>
             <button type="submit" className="btn signup-btn">Log In</button>
             <p className='sign-up-text'>Not a Surfr member? <a href="#sign-up" className='sign-up-link'> Sign Up</a> </p>
