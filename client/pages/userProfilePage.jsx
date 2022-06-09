@@ -1,5 +1,5 @@
 import React from 'react';
-import Photostream from '../components/photostream';
+import UserPhotostream from '../components/user-photostream';
 import AppContext from '../lib/app-context';
 import ImageUploadModal from '../components/image-upload';
 import GalleryImageUploadModal from '../components/gallery-upload';
@@ -116,7 +116,7 @@ export default class UserProfilePage extends React.Component {
           </ul>
           <button className='upload-images-button' onClick={this.toggleUploadGalleryImageModal}><i className="fa-solid fa-images"></i> <span className='upload-text'>Upload Images</span></button>
         </nav>
-        <Photostream images={images} />
+        <UserPhotostream images={images} update={this.updateProfile}/>
       </>
     );
   }
