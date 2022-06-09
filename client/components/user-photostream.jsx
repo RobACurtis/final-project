@@ -11,6 +11,7 @@ export default class UserPhotostream extends React.Component {
     };
     this.imgModal = this.imgModal.bind(this);
     this.deleteModal = this.deleteModal.bind(this);
+    this.updateComponent = this.updateComponent.bind(this);
   }
 
   imgModal(event) {
@@ -35,7 +36,7 @@ export default class UserPhotostream extends React.Component {
   }
 
   updateComponent() {
-    this.props.updateProfile();
+    this.props.update();
     this.setState({
       modalVisible: false,
       src: null
@@ -68,10 +69,10 @@ export default class UserPhotostream extends React.Component {
     }
 
     const images = imageList.map(img => {
-      const { imageUrl, photoId } = img;
       if (!img) {
-        return (<h5 key="no-photos">No photos yet!</h5>);
+        return (<h5 key="no-photos">You have no photos yet!</h5>);
       } else {
+        const { imageUrl, photoId } = img;
         return (
           <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
         );

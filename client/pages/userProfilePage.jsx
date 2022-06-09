@@ -37,6 +37,9 @@ export default class UserProfilePage extends React.Component {
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
         const images = photos.map(image => {
+          if (!image) {
+            return null;
+          }
           const { imageUrl, photoId } = image;
           return { imageUrl, photoId };
         });
@@ -73,7 +76,7 @@ export default class UserProfilePage extends React.Component {
           <div className="overlay-coverphoto"></div>
           <div className="coverphoto-container">
             <img src={coverImageUrl} className="coverphoto" alt="shorebreak" />
-          </div>
+          </div>å
           <div className="profile-info">
             <div>
               <img src={profileImageUrl} className="profile-image" alt="profile picture" />

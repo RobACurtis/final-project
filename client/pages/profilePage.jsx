@@ -66,7 +66,7 @@ export default class ProfilePage extends React.Component {
         </li>
       </ul>
     </nav>
-    <Photostream images={images}/>
+    <Photostream images={images} firstName={this.state.user.firstName}/>
     </>
     );
   }

@@ -19,7 +19,6 @@ export default class DeleteModal extends React.Component {
     fetch(`/api/auth/delete-image/${this.props.img.id}`, req)
       .then(res => res.json())
       .then(response => {
-        this.fileInputRef.current.value = null;
         this.props.toggle();
         this.props.update();
       })

@@ -39,6 +39,7 @@ export default class Photostream extends React.Component {
 
   render() {
     if (!this.state.images && !this.props.images) return null;
+    const firstName = this.props.firstName ? this.props.firstName : '';
     let hidden = 'd-none';
     let src = '';
     if (this.state.modalVisible) {
@@ -59,20 +60,25 @@ export default class Photostream extends React.Component {
     const imageList = this.state.images
       ? this.state.images
       : this.props.images.map(img => {
-        const { imageUrl, photoId } = img.image;
-        return { imageUrl, photoId };
+        if (!img.image) {
+          return null;
+        } else {
+          const { imageUrl, photoId } = img.image;
+          return { imageUrl, photoId };
+        }
       });
 
     const images = imageList.map(img => {
-      const { imageUrl, photoId } = img;
-      if (!imageUrl) {
-        return (<h5 key="no-photo">No photos yet!</h5>);
+      if (!img) {
+        return (<h5 key="no-photos">{firstName} has no photos yet!</h5>);
       } else {
+        const { imageUrl, photoId } = img;
         return (
-        <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+            <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
         );
       }
     });
+
     return (
       <>
         <div id="img-expand" className={hidden}>
