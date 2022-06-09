@@ -7,6 +7,7 @@ const db = require('./db');
 const argon2 = require('argon2'); // eslint-disable-line
 const jwt = require('jsonwebtoken');
 const uploadsMiddleware = require('./uploads-middleware');
+const galleryUploadMiddleware = require('./gallery-upload-middleware');
 const authorizationMiddleware = require('./authorization-middleware');
 
 const app = express();
@@ -164,16 +165,24 @@ app.post('/api/auth/profile-image', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/auth/gallery-images', uploadsMiddleware, (req, res, next) => {
+app.post('/api/auth/gallery-images', galleryUploadMiddleware, (req, res, next) => {
   const { userId } = req.user;
-  const imageUrl = path.join('/images/gallery-images/', req.file.filename);
+  const imageUrls = req.files.map(file => {
+    return path.join('/images/gallery-images/', file.filename);
+  });
+
   const sql = `
+    with "newImages" as (
+      select unnest($1::text[]) as "imageUrl"
+    )
        insert into "photos" ("userId", "imageUrl", "createdAt")
-       values ($1, $2, now())
-       returning "imageUrl",
-                 "userId"
-  `;
-  const params = [userId, imageUrl];
+       select $2,
+       "newImages"."imageUrl",
+         now()
+        from "newImages"
+        returning *
+`;
+  const params = [imageUrls, userId];
   db.query(sql, params)
     .then(result => {
       const [image] = result.rows;

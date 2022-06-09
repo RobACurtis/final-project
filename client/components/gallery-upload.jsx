@@ -9,9 +9,12 @@ export default class GalleryImageUploadModal extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = window.localStorage.getItem('react-context-jwt');
     const formData = new FormData();
-    formData.append('image', this.fileInputRef.current.files[0]);
+    for (let i = 0; i < this.fileInputRef.current.files.length; i++) {
+      formData.append('image', this.fileInputRef.current.files[i]);
+    }
+    const token = window.localStorage.getItem('react-context-jwt');
+
     const req = {
       method: 'POST',
       headers: {
@@ -44,11 +47,13 @@ export default class GalleryImageUploadModal extends React.Component {
             <button className='upload-close' onClick={this.props.toggle}>
               <i id="close-modal" className="fa fa-window-close text-black"></i>
             </button>
-            <h3>Upload Gallery Photos</h3>
+            <h3>Upload Photos</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="d-flex justify-content-between align-items-center">
                 <input
-                  required
+                  multiple
+                  className='form-control'
+                  id='formFileMultiple'
                   type="file"
                   name="image"
                   ref={this.fileInputRef}

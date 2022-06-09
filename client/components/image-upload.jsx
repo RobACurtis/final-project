@@ -44,7 +44,7 @@ export default class ImageUploadModal extends React.Component {
             <button className='upload-close' onClick={this.props.toggle}>
               <i id="close-modal" className="fa fa-window-close text-black"></i>
             </button>
-            <h3>Upload Profile Photo</h3>
+            <h3>Edit Profile Photo</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="d-flex justify-content-between align-items-center">
                 <input
