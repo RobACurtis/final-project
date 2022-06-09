@@ -24,7 +24,8 @@ app.use(jsonMiddleware);
 
 app.get('/api/explore-images', (req, res, next) => {
   const sql = `
-       select "imageUrl"
+       select "imageUrl",
+              "photoId"
        from "photos"
        order by "createdAt" desc
        limit 14
@@ -61,7 +62,7 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       "users"."location",
       "users"."coverImageUrl",
       "users"."profileImageUrl",
-      array_agg("photos"."imageUrl" order by "photos"."createdAt" desc) as "photos"
+      json_agg("photos".* order by "photos"."createdAt" desc) as "photos"
       from "users"
       left join "photos" using ("userId")
       where "users"."userId" = $1

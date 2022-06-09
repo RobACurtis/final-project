@@ -9,7 +9,7 @@ export default class UserProfilePage extends React.Component {
     super(props);
     this.state = {
       user: null,
-      imageUrls: [],
+      images: [],
       profileImageModalVisible: false,
       uploadGalleryImageModal: false
     };
@@ -36,9 +36,11 @@ export default class UserProfilePage extends React.Component {
       .then(res => res.json())
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
-        const imageUrls = photos.map(imageUrl => {
-          return { imageUrl };
+        const images = photos.map(image => {
+          const { imageUrl, photoId } = image;
+          return { imageUrl, photoId };
         });
+
         this.setState({
           user: {
             firstName,
@@ -49,38 +51,18 @@ export default class UserProfilePage extends React.Component {
             profileImageUrl,
             userId
           },
-          imageUrls
+          images
         });
       });
   }
 
   componentDidMount() {
-    const userId = this.context.user.userId;
-    fetch('/api/photographer-profile/' + userId)
-      .then(res => res.json())
-      .then(user => {
-        const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
-        const imageUrls = photos.map(imageUrl => {
-          return { imageUrl };
-        });
-        this.setState({
-          user: {
-            firstName,
-            lastName,
-            email,
-            location,
-            coverImageUrl,
-            profileImageUrl,
-            userId
-          },
-          imageUrls
-        });
-      });
+    this.updateProfile();
   }
 
   render() {
     if (!this.state.user) return null;
-    const images = this.state.imageUrls;
+    const images = this.state.images;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
     const emailHref = `mailto:${email}`;
     return (
