@@ -7,7 +7,7 @@ export default class UserPhotostream extends React.Component {
     this.state = {
       modalVisible: false,
       modalImg: null,
-      deleteModalVisible: true
+      deleteModalVisible: false
     };
     this.imgModal = this.imgModal.bind(this);
     this.deleteModal = this.deleteModal.bind(this);
@@ -23,7 +23,7 @@ export default class UserPhotostream extends React.Component {
           id: event.target.id
         }
       });
-    } else if (event.target.id === 'close-modal') {
+    } else {
       this.setState({
         modalVisible: false,
         modalImg: null
@@ -45,8 +45,6 @@ export default class UserPhotostream extends React.Component {
 
   render() {
     if (!this.props.images) return null;
-    const imageList = this.props.images;
-    const showModal = !this.state.deleteModalVisible;
 
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
@@ -59,16 +57,11 @@ export default class UserPhotostream extends React.Component {
       }
     };
 
-    let hidden = 'd-none';
-    let src = '';
-    let id = '';
-    if (this.state.modalVisible) {
-      hidden = '';
-      src = this.state.modalImg.src;
-      id = Number(this.state.modalImg.id);
-    }
+    const hidden = this.state.modalVisible ? '' : 'd-none';
+    const src = this.state.modalVisible ? this.state.modalImg.src : '';
+    const id = this.state.modalVisible ? this.state.modalImg.id : '';
 
-    const images = imageList.map(img => {
+    const images = this.props.images.map(img => {
       if (!img) {
         return (<h5 key="no-photos">You have no photos yet!</h5>);
       } else {
@@ -81,7 +74,7 @@ export default class UserPhotostream extends React.Component {
 
     return (
       <>
-      <DeleteModal img={this.state.modalImg} display={showModal} toggle={this.deleteModal} update={this.updateComponent}/>
+        <DeleteModal img={this.state.modalImg} display={!this.state.deleteModalVisible} toggle={this.deleteModal} update={this.updateComponent}/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>
           <div className='d-flex img-expand-container center'>

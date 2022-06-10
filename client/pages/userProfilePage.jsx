@@ -31,8 +31,8 @@ export default class UserProfilePage extends React.Component {
   }
 
   updateProfile() {
-    const userId = Number(this.context.user.userId);
-    fetch('/api/photographer-profile/' + userId)
+    const userId = this.context.user.userId;
+    fetch(`/api/photographer-profile/${userId}`)
       .then(res => res.json())
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
@@ -76,7 +76,7 @@ export default class UserProfilePage extends React.Component {
           <div className="overlay-coverphoto"></div>
           <div className="coverphoto-container">
             <img src={coverImageUrl} className="coverphoto" alt="shorebreak" />
-          </div>å
+          </div>
           <div className="profile-info">
             <div>
               <img src={profileImageUrl} className="profile-image" alt="profile picture" />

@@ -11,7 +11,8 @@ export default class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/photographer-profile/' + this.props.userId)
+    const userId = this.props.userId;
+    fetch(`/api/photographer-profile/${userId}`)
       .then(res => res.json())
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
@@ -66,7 +67,7 @@ export default class ProfilePage extends React.Component {
         </li>
       </ul>
     </nav>
-    <Photostream images={images} firstName={this.state.user.firstName}/>
+    <Photostream images={images} firstName={firstName}/>
     </>
     );
   }

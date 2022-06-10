@@ -6,7 +6,7 @@ export default class Photostream extends React.Component {
     this.state = {
       images: null,
       modalVisible: false,
-      src: null
+      modalImg: null
     };
     this.imgModal = this.imgModal.bind(this);
   }
@@ -27,12 +27,15 @@ export default class Photostream extends React.Component {
     if (!this.state.modalVisible) {
       this.setState({
         modalVisible: true,
-        src: event.target.src
+        modalImg: {
+          src: event.target.src,
+          id: event.target.id
+        }
       });
-    } else if (event.target.id === 'close-modal') {
+    } else {
       this.setState({
         modalVisible: false,
-        src: null
+        modalImg: null
       });
     }
   }
@@ -40,12 +43,10 @@ export default class Photostream extends React.Component {
   render() {
     if (!this.state.images && !this.props.images) return null;
     const firstName = this.props.firstName ? this.props.firstName : '';
-    let hidden = 'd-none';
-    let src = '';
-    if (this.state.modalVisible) {
-      hidden = '';
-      src = this.state.src;
-    }
+
+    const hidden = this.state.modalVisible ? '' : 'd-none';
+    const src = this.state.modalVisible ? this.state.modalImg.src : '';
+
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
       if (width > height) {

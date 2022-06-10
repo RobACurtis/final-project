@@ -26,12 +26,8 @@ export default class DeleteModal extends React.Component {
   }
 
   render() {
-    let hidden;
-    if (this.props.display) {
-      hidden = '';
-    } else {
-      hidden = 'd-none';
-    }
+    const hidden = this.props.display ? 'd-none' : '';
+
     return (
       <div id="img-expand" className={hidden}>
         <div className='delete-modal-overlay'></div>
