@@ -57,18 +57,35 @@ export default class UserPhotostream extends React.Component {
       }
     };
 
+    const onLastImgLoad = ({ target: img }) => {
+      const { offsetHeight: height, offsetWidth: width } = img;
+      if (width > height) {
+        img.className = 'last landscape';
+      } else if (width < height) {
+        img.className = 'last portrait';
+      } else {
+        img.className = 'last square';
+      }
+    };
+
     const hidden = this.state.modalVisible ? '' : 'd-none';
     const src = this.state.modalVisible ? this.state.modalImg.src : '';
     const id = this.state.modalVisible ? this.state.modalImg.id : '';
 
-    const images = this.props.images.map(img => {
+    const images = this.props.images.map((img, i) => {
       if (!img) {
         return (<h5 key="no-photos">You have no photos yet!</h5>);
       } else {
         const { imageUrl, photoId } = img;
-        return (
-          <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
-        );
+        if (i === this.props.images.length - 1) {
+          return (
+            <img onLoad={onLastImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+          );
+        } else {
+          return (
+            <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+          );
+        }
       }
     });
 

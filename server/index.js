@@ -28,12 +28,14 @@ app.get('/api/explore-images/:images', (req, res, next) => {
        select "imageUrl",
               "photoId"
        from "photos"
-       order by "createdAt" desc
-       limit 5 offset $1
+       order by "photoId" desc
+       limit 20 offset $1
   `;
   const params = [images];
   db.query(sql, params)
-    .then(result => res.json(result.rows))
+    .then(result => {
+      res.json(result.rows);
+    })
     .catch(err => next(err));
 });
 
