@@ -24,7 +24,8 @@ app.use(jsonMiddleware);
 
 app.get('/api/explore-images', (req, res, next) => {
   const sql = `
-       select "imageUrl"
+       select "imageUrl",
+              "photoId"
        from "photos"
        order by "createdAt" desc
        limit 14
@@ -61,7 +62,7 @@ app.get('/api/photographer-profile/:userId', (req, res, next) => {
       "users"."location",
       "users"."coverImageUrl",
       "users"."profileImageUrl",
-      array_agg("photos"."imageUrl" order by "photos"."createdAt" desc) as "photos"
+      json_agg("photos".* order by "photos"."createdAt" desc) as "photos"
       from "users"
       left join "photos" using ("userId")
       where "users"."userId" = $1
@@ -189,6 +190,35 @@ app.post('/api/auth/gallery-images', galleryUploadMiddleware, (req, res, next) =
       res.json(image);
     })
     .catch(err => next(err));
+});
+
+app.delete('/api/auth/delete-image/:photoId', (req, res, next) => {
+  const photoId = Number(req.params.photoId);
+  if (photoId < 0 || !Number.isInteger(photoId)) {
+    res.status(400).send({ error: 'gradeId must be a positive integer' });
+  } else {
+    const { userId } = req.user;
+    const sql = `
+        delete from "photos"
+        where "photoId" = $1
+        and "userId" = $2
+        returning *;
+    `;
+    const params = [photoId, userId];
+    db.query(sql, params)
+      .then(result => {
+        const photo = result.rows;
+        if (photo[0] === undefined) {
+          res.status(404).json({ error: 'Cannot find photoId matching UserId' });
+        } else {
+          res.status(201).json(photo);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: 'an unexpected error occured.' });
+      });
+  }
 });
 
 app.use(errorMiddleware);

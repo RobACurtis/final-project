@@ -1,26 +1,17 @@
 import React from 'react';
+import DeleteModal from './delete-modal';
 
-export default class Photostream extends React.Component {
+export default class UserPhotostream extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: null,
       modalVisible: false,
-      modalImg: null
+      modalImg: null,
+      deleteModalVisible: false
     };
     this.imgModal = this.imgModal.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.images) {
-      this.setState({ images: null });
-    } else {
-      fetch('/api/explore-images')
-        .then(res => res.json())
-        .then(images => {
-          this.setState({ images });
-        });
-    }
+    this.deleteModal = this.deleteModal.bind(this);
+    this.updateComponent = this.updateComponent.bind(this);
   }
 
   imgModal(event) {
@@ -40,12 +31,20 @@ export default class Photostream extends React.Component {
     }
   }
 
-  render() {
-    if (!this.state.images && !this.props.images) return null;
-    const firstName = this.props.firstName ? this.props.firstName : '';
+  deleteModal(event) {
+    this.setState({ deleteModalVisible: !this.state.deleteModalVisible });
+  }
 
-    const hidden = this.state.modalVisible ? '' : 'd-none';
-    const src = this.state.modalVisible ? this.state.modalImg.src : '';
+  updateComponent() {
+    this.props.update();
+    this.setState({
+      modalVisible: false,
+      src: null
+    });
+  }
+
+  render() {
+    if (!this.props.images) return null;
 
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
@@ -58,35 +57,30 @@ export default class Photostream extends React.Component {
       }
     };
 
-    const imageList = this.state.images
-      ? this.state.images
-      : this.props.images.map(img => {
-        if (!img.image) {
-          return null;
-        } else {
-          const { imageUrl, photoId } = img.image;
-          return { imageUrl, photoId };
-        }
-      });
+    const hidden = this.state.modalVisible ? '' : 'd-none';
+    const src = this.state.modalVisible ? this.state.modalImg.src : '';
+    const id = this.state.modalVisible ? this.state.modalImg.id : '';
 
-    const images = imageList.map(img => {
+    const images = this.props.images.map(img => {
       if (!img) {
-        return (<h5 key="no-photos">{firstName} has no photos yet!</h5>);
+        return (<h5 key="no-photos">You have no photos yet!</h5>);
       } else {
         const { imageUrl, photoId } = img;
         return (
-            <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+          <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
         );
       }
     });
 
     return (
       <>
+        <DeleteModal img={this.state.modalImg} display={!this.state.deleteModalVisible} toggle={this.deleteModal} update={this.updateComponent}/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>
           <div className='d-flex img-expand-container center'>
             <button className='close-button' onClick={this.imgModal}><i id="close-modal" className="fa fa-window-close"></i></button>
-            <img src={src} alt='surfing' className='img-expand' />
+            <img src={src} id={id} alt='surfing' className='img-expand' />
+            <button className='trash-button' onClick={this.deleteModal}><i className="fa fa-trash"></i></button>
           </div>
         </div>
         <div className="gallery-container">

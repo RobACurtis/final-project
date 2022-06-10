@@ -1,5 +1,5 @@
 import React from 'react';
-import Photostream from '../components/photostream';
+import UserPhotostream from '../components/user-photostream';
 import AppContext from '../lib/app-context';
 import ImageUploadModal from '../components/image-upload';
 import GalleryImageUploadModal from '../components/gallery-upload';
@@ -9,7 +9,7 @@ export default class UserProfilePage extends React.Component {
     super(props);
     this.state = {
       user: null,
-      imageUrls: [],
+      images: [],
       profileImageModalVisible: false,
       uploadGalleryImageModal: false
     };
@@ -31,14 +31,19 @@ export default class UserProfilePage extends React.Component {
   }
 
   updateProfile() {
-    const userId = Number(this.context.user.userId);
-    fetch('/api/photographer-profile/' + userId)
+    const userId = this.context.user.userId;
+    fetch(`/api/photographer-profile/${userId}`)
       .then(res => res.json())
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
-        const imageUrls = photos.map(imageUrl => {
-          return { imageUrl };
+        const images = photos.map(image => {
+          if (!image) {
+            return null;
+          }
+          const { imageUrl, photoId } = image;
+          return { imageUrl, photoId };
         });
+
         this.setState({
           user: {
             firstName,
@@ -49,38 +54,18 @@ export default class UserProfilePage extends React.Component {
             profileImageUrl,
             userId
           },
-          imageUrls
+          images
         });
       });
   }
 
   componentDidMount() {
-    const userId = this.context.user.userId;
-    fetch('/api/photographer-profile/' + userId)
-      .then(res => res.json())
-      .then(user => {
-        const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
-        const imageUrls = photos.map(imageUrl => {
-          return { imageUrl };
-        });
-        this.setState({
-          user: {
-            firstName,
-            lastName,
-            email,
-            location,
-            coverImageUrl,
-            profileImageUrl,
-            userId
-          },
-          imageUrls
-        });
-      });
+    this.updateProfile();
   }
 
   render() {
     if (!this.state.user) return null;
-    const images = this.state.imageUrls;
+    const images = this.state.images;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
     const emailHref = `mailto:${email}`;
     return (
@@ -116,7 +101,7 @@ export default class UserProfilePage extends React.Component {
           </ul>
           <button className='upload-images-button' onClick={this.toggleUploadGalleryImageModal}><i className="fa-solid fa-images"></i> <span className='upload-text'>Upload Images</span></button>
         </nav>
-        <Photostream images={images} />
+        <UserPhotostream images={images} update={this.updateProfile}/>
       </>
     );
   }

@@ -6,17 +6,18 @@ export default class ProfilePage extends React.Component {
     super(props);
     this.state = {
       user: null,
-      imageUrls: []
+      images: []
     };
   }
 
   componentDidMount() {
-    fetch('/api/photographer-profile/' + this.props.userId)
+    const userId = this.props.userId;
+    fetch(`/api/photographer-profile/${userId}`)
       .then(res => res.json())
       .then(user => {
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
-        const imageUrls = photos.map(imageUrl => {
-          return { imageUrl };
+        const images = photos.map(image => {
+          return { image };
         });
 
         this.setState({
@@ -28,14 +29,14 @@ export default class ProfilePage extends React.Component {
             coverImageUrl,
             profileImageUrl
           },
-          imageUrls
+          images
         });
       });
   }
 
   render() {
     if (!this.state.user) return null;
-    const images = this.state.imageUrls;
+    const images = this.state.images;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
     const emailHref = `mailto:${email}`;
 
@@ -66,7 +67,7 @@ export default class ProfilePage extends React.Component {
         </li>
       </ul>
     </nav>
-    <Photostream images={images}/>
+    <Photostream images={images} firstName={firstName}/>
     </>
     );
   }
