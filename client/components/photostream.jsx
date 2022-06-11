@@ -46,16 +46,6 @@ export default class Photostream extends React.Component {
       }
     };
 
-    const onLastImgLoad = ({ target: img }) => {
-      const { offsetHeight: height, offsetWidth: width } = img;
-      if (width > height) {
-        img.className = 'last landscape';
-      } else if (width < height) {
-        img.className = 'last portrait';
-      } else {
-        img.className = 'last square';
-      }
-    };
 
     const imageList = this.state.images
       ? this.state.images
@@ -68,20 +58,14 @@ export default class Photostream extends React.Component {
         }
       });
 
-    const images = imageList.map((img, i) => {
+    const images = imageList.map(img => {
       if (!img) {
         return (<h5 key="no-photos">{firstName} has no photos yet!</h5>);
       } else {
         const { imageUrl, photoId } = img;
-        if (i === imageList.length - 1) {
-          return (
-            <img onLoad={onLastImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
-          );
-        } else {
           return (
             <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
           );
-        }
       }
     });
 

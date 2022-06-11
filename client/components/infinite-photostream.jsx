@@ -5,22 +5,65 @@ export default class InfinitePhotostream extends React.Component {
     super(props);
     this.state = {
       images: null,
+      numberOfImages: 0,
+      loading: true,
       modalVisible: false,
       modalImg: null
     };
     this.imgModal = this.imgModal.bind(this);
-    this.infiniteScroll = this.infiniteScroll.bind(this);
+    this.observer = React.createRef();
+    this.lastImageRef = this.lastImageRef.bind(this);
+    this.loadImages = this.loadImages.bind(this);
   }
 
   componentDidMount() {
     fetch('/api/explore-images/0')
       .then(res => res.json())
       .then(images => {
-        this.setState({ images });
+        this.setState({
+          images,
+          numberOfImages: 15,
+          loading: false
+        });
       });
-    window.addEventListener('scroll', this.infiniteScroll);
   }
 
+  lastImageRef(node) {
+
+  if (this.state.loading) {
+    console.log('loading');
+    return null;
+  }
+  this.observer.current = new IntersectionObserver(entries => {
+    // console.log(this.state.loading)
+    if (entries[0].isIntersecting) {
+      console.log(entries[0].target);
+      this.setState({ loading: true });
+      this.loadImages();
+    }
+  })
+  if (node) this.observer.current.observe(node);
+  // this.setState({loading: true});
+}
+
+loadImages() {
+  const numberOfImages = this.state.numberOfImages;
+  fetch(`/api/explore-images/${numberOfImages}`)
+    .then(res => res.json())
+    .then(images => {
+      if (!images[0]) {
+        return null;
+      } else if (images[0]) {
+        const newNumber = numberOfImages + 15;
+        const currentImages = this.state.images;
+        for (let i = 0; i < images.length; i++) {
+          currentImages.push(images[i]);
+        }
+        this.setState({ images: currentImages, numberOfImages: newNumber, loading: false});
+      }
+      console.log(this.state.loading);
+    });
+}
   imgModal(event) {
     if (!this.state.modalVisible) {
       this.setState({
@@ -35,32 +78,6 @@ export default class InfinitePhotostream extends React.Component {
         modalVisible: false,
         modalImg: null
       });
-    }
-  }
-
-  infiniteScroll(e) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
-      window.removeEventListener('scroll', this.infiniteScroll);
-      if (!this.state.images) {
-        return null;
-      }
-      const numberOfImagesLoaded = this.state.images.length;
-      fetch(`/api/explore-images/${numberOfImagesLoaded}`)
-        .then(res => res.json())
-        .then(images => {
-          if (!images[0]) {
-            return null;
-          } else if (images[0]) {
-            const currentImages = this.state.images;
-            for (let i = 0; i < images.length; i++) {
-              currentImages.push(images[i]);
-            }
-            this.setState({ images: currentImages });
-          }
-        });
-      setTimeout(() => {
-        window.addEventListener('scroll', this.infiniteScroll);
-      }, 1000);
     }
   }
 
@@ -80,28 +97,21 @@ export default class InfinitePhotostream extends React.Component {
       }
     };
 
-    const imageList = this.state.images
-      ? this.state.images
-      : this.props.images.map(img => {
-        if (!img.image) {
-          return null;
-        } else {
-          const { imageUrl, photoId } = img.image;
-          return { imageUrl, photoId };
-        }
-      });
+    const imageList = this.state.images;
 
-    const images = imageList.map(img => {
+    const images = imageList.map((img, index) => {
       if (!img) {
         return (<h5 key="no-photos"> Sorry, no photos!</h5>);
       } else {
         const { imageUrl, photoId } = img;
+        if (index === imageList.length - 1) {
+          return <img onLoad={onImgLoad} ref={this.lastImageRef} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+        }
         return (
           <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
         );
       }
     });
-
     return (
       <>
         <div id="img-expand" className={hidden}>
