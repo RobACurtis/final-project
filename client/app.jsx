@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext from './lib/app-context';
-import Redirect from './components/redirect';
+import Redirect from './lib/redirect';
 import Home from './pages/home';
 import jwtDecode from 'jwt-decode';
 import Explore from './pages/explore';

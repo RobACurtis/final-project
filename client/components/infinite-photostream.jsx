@@ -29,6 +29,10 @@ export default class InfinitePhotostream extends React.Component {
       });
   }
 
+  toggleLoad() {
+    this.setState({ loading: false });
+  }
+
   imgModal(event) {
     if (!this.state.modalVisible) {
       this.setState({
@@ -47,26 +51,18 @@ export default class InfinitePhotostream extends React.Component {
   }
 
   observerImage(node) {
-    if (this.observer.current) {
-      this.observer.current.disconnect();
-    }
     this.observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
         if (this.state.loading) {
           return null;
         } else {
+          this.observer.current.unobserve(node);
           this.loadImages();
         }
       }
-    });
-    if (node) {
-      this.observer.current.observe(node);
-    }
-    this.setState({ loading: true });
-  }
+    }, { threshold: 1 });
 
-  toggleLoad() {
-    this.setState({ loading: false });
+    if (node) this.observer.current.observe(node);
   }
 
   loadImages() {

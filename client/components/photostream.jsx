@@ -46,26 +46,23 @@ export default class Photostream extends React.Component {
       }
     };
 
-
-    const imageList = this.state.images
-      ? this.state.images
-      : this.props.images.map(img => {
-        if (!img.image) {
-          return null;
-        } else {
-          const { imageUrl, photoId } = img.image;
-          return { imageUrl, photoId };
-        }
-      });
+    const imageList = this.props.images.map(img => {
+      if (!img.image) {
+        return null;
+      } else {
+        const { imageUrl, photoId } = img.image;
+        return { imageUrl, photoId };
+      }
+    });
 
     const images = imageList.map(img => {
       if (!img) {
         return (<h5 key="no-photos">{firstName} has no photos yet!</h5>);
       } else {
         const { imageUrl, photoId } = img;
-          return (
+        return (
             <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
-          );
+        );
       }
     });
 
