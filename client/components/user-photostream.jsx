@@ -10,7 +10,7 @@ export default class UserPhotostream extends React.Component {
       deleteModalVisible: false
     };
     this.imgModal = this.imgModal.bind(this);
-    this.deleteModal = this.deleteModal.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.updateComponent = this.updateComponent.bind(this);
   }
 
@@ -31,7 +31,7 @@ export default class UserPhotostream extends React.Component {
     }
   }
 
-  deleteModal(event) {
+  toggleDeleteModal(event) {
     this.setState({ deleteModalVisible: !this.state.deleteModalVisible });
   }
 
@@ -67,20 +67,20 @@ export default class UserPhotostream extends React.Component {
       } else {
         const { imageUrl, photoId } = img;
         return (
-          <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+             <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
         );
       }
     });
 
     return (
       <>
-        <DeleteModal img={this.state.modalImg} display={!this.state.deleteModalVisible} toggle={this.deleteModal} update={this.updateComponent}/>
+        <DeleteModal img={this.state.modalImg} display={!this.state.deleteModalVisible} toggle={this.toggleDeleteModal} update={this.updateComponent}/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>
           <div className='d-flex img-expand-container center'>
             <button className='close-button' onClick={this.imgModal}><i id="close-modal" className="fa fa-window-close"></i></button>
             <img src={src} id={id} alt='surfing' className='img-expand' />
-            <button className='trash-button' onClick={this.deleteModal}><i className="fa fa-trash"></i></button>
+            <button className='trash-button' onClick={this.toggleDeleteModal}><i className="fa fa-trash"></i></button>
           </div>
         </div>
         <div className="gallery-container">

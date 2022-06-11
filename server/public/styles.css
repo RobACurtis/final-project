@@ -255,7 +255,6 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  transition: 1s linear;
   margin-bottom: 5rem;
 }
 
@@ -701,6 +700,10 @@ input.invalid-password {
     width: 40%;
     flex-grow: 2;
   }
+
+  #gallery > img:last-child {
+    flex-grow: 0.3;
+  }
 }
 
 @media screen and (min-width: 980px) {
@@ -769,9 +772,5 @@ input.invalid-password {
 
   .portrait {
     width: 10%;
-  }
-
-  .square {
-    width: 20%;
   }
 }

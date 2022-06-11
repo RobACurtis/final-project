@@ -22,16 +22,20 @@ const jsonMiddleware = express.json();
 
 app.use(jsonMiddleware);
 
-app.get('/api/explore-images', (req, res, next) => {
+app.get('/api/explore-images/:images', (req, res, next) => {
+  const { images } = req.params;
   const sql = `
        select "imageUrl",
               "photoId"
        from "photos"
-       order by "createdAt" desc
-       limit 14
+       order by "photoId" desc
+       limit 20 offset $1
   `;
-  db.query(sql)
-    .then(result => res.json(result.rows))
+  const params = [images];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
     .catch(err => next(err));
 });
 

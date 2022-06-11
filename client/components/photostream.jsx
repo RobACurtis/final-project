@@ -4,23 +4,10 @@ export default class Photostream extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: null,
       modalVisible: false,
       modalImg: null
     };
     this.imgModal = this.imgModal.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.images) {
-      this.setState({ images: null });
-    } else {
-      fetch('/api/explore-images')
-        .then(res => res.json())
-        .then(images => {
-          this.setState({ images });
-        });
-    }
   }
 
   imgModal(event) {
@@ -41,8 +28,9 @@ export default class Photostream extends React.Component {
   }
 
   render() {
-    if (!this.state.images && !this.props.images) return null;
-    const firstName = this.props.firstName ? this.props.firstName : '';
+    if (!this.props.images) return null;
+
+    const firstName = this.props.firstName;
 
     const hidden = this.state.modalVisible ? '' : 'd-none';
     const src = this.state.modalVisible ? this.state.modalImg.src : '';
@@ -58,16 +46,14 @@ export default class Photostream extends React.Component {
       }
     };
 
-    const imageList = this.state.images
-      ? this.state.images
-      : this.props.images.map(img => {
-        if (!img.image) {
-          return null;
-        } else {
-          const { imageUrl, photoId } = img.image;
-          return { imageUrl, photoId };
-        }
-      });
+    const imageList = this.props.images.map(img => {
+      if (!img.image) {
+        return null;
+      } else {
+        const { imageUrl, photoId } = img.image;
+        return { imageUrl, photoId };
+      }
+    });
 
     const images = imageList.map(img => {
       if (!img) {
