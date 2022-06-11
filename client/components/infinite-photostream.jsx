@@ -83,6 +83,10 @@ export default class InfinitePhotostream extends React.Component {
       });
   }
 
+  componentWillUnmount() {
+    if (this.observer.current) this.observer.current.disconnect();
+  }
+
   render() {
     if (!this.state.images) return null;
 
