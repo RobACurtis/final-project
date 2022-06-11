@@ -11,8 +11,8 @@ export default class InfinitePhotostream extends React.Component {
       modalImg: null
     };
     this.imgModal = this.imgModal.bind(this);
-    this.observer = React.createRef();
     this.lastImageRef = this.lastImageRef.bind(this);
+    this.observer = React.createRef(this.lastImageRef);
     this.loadImages = this.loadImages.bind(this);
   }
 
@@ -23,47 +23,54 @@ export default class InfinitePhotostream extends React.Component {
         this.setState({
           images,
           numberOfImages: 15,
-          loading: false
+          loading: true
         });
       });
   }
 
   lastImageRef(node) {
-
-  if (this.state.loading) {
-    console.log('loading');
-    return null;
-  }
-  this.observer.current = new IntersectionObserver(entries => {
-    // console.log(this.state.loading)
-    if (entries[0].isIntersecting) {
-      console.log(entries[0].target);
-      this.setState({ loading: true });
-      this.loadImages();
+    if (this.observer.current) {
+      this.observer.current.disconnect();
     }
-  })
-  if (node) this.observer.current.observe(node);
-  // this.setState({loading: true});
-}
-
-loadImages() {
-  const numberOfImages = this.state.numberOfImages;
-  fetch(`/api/explore-images/${numberOfImages}`)
-    .then(res => res.json())
-    .then(images => {
-      if (!images[0]) {
-        return null;
-      } else if (images[0]) {
-        const newNumber = numberOfImages + 15;
-        const currentImages = this.state.images;
-        for (let i = 0; i < images.length; i++) {
-          currentImages.push(images[i]);
+    this.observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        if (this.state.loading) {
+          return null;
+        } else {
+          this.loadImages();
         }
-        this.setState({ images: currentImages, numberOfImages: newNumber, loading: false});
       }
-      console.log(this.state.loading);
     });
-}
+
+    if (node) {
+      this.observer.current.observe(node);
+    }
+
+    this.setState({ loading: true });
+  }
+
+  load() {
+    this.setState({ loading: false });
+  }
+
+  loadImages() {
+    const numberOfImages = this.state.numberOfImages;
+    fetch(`/api/explore-images/${numberOfImages}`)
+      .then(res => res.json())
+      .then(images => {
+        if (!images[0]) {
+          return null;
+        } else if (images[0]) {
+          const newNumber = numberOfImages + 15;
+          const currentImages = this.state.images;
+          for (let i = 0; i < images.length; i++) {
+            currentImages.push(images[i]);
+          }
+          this.setState({ images: currentImages, numberOfImages: newNumber, loading: true });
+        }
+      });
+  }
+
   imgModal(event) {
     if (!this.state.modalVisible) {
       this.setState({
@@ -89,12 +96,24 @@ loadImages() {
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
       if (width > height) {
-        img.className += ' landscape';
+        img.className = ' landscape';
       } else if (width < height) {
-        img.className += ' portrait';
+        img.className = ' portrait';
       } else {
-        img.className += ' square';
+        img.className = ' square';
       }
+    };
+
+    const onLastImgLoad = ({ target: img }) => {
+      const { offsetHeight: height, offsetWidth: width } = img;
+      if (width > height) {
+        img.className = ' landscape';
+      } else if (width < height) {
+        img.className = ' portrait';
+      } else {
+        img.className = ' square';
+      }
+      this.load();
     };
 
     const imageList = this.state.images;
@@ -104,8 +123,8 @@ loadImages() {
         return (<h5 key="no-photos"> Sorry, no photos!</h5>);
       } else {
         const { imageUrl, photoId } = img;
-        if (index === imageList.length - 1) {
-          return <img onLoad={onImgLoad} ref={this.lastImageRef} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
+        if (index === imageList.length - 5) {
+          return <img onLoad={onLastImgLoad} ref={this.lastImageRef} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
         }
         return (
           <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
