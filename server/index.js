@@ -29,7 +29,7 @@ app.get('/api/explore-images/:images', (req, res, next) => {
               "photoId"
        from "photos"
        order by "photoId" desc
-       limit 15 offset $1
+       limit 20 offset $1
   `;
   const params = [images];
   db.query(sql, params)

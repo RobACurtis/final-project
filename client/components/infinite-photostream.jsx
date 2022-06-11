@@ -5,15 +5,16 @@ export default class InfinitePhotostream extends React.Component {
     super(props);
     this.state = {
       images: null,
-      numberOfImages: 0,
+      totalImages: 0,
       loading: true,
       modalVisible: false,
       modalImg: null
     };
     this.imgModal = this.imgModal.bind(this);
-    this.lastImageRef = this.lastImageRef.bind(this);
-    this.observer = React.createRef(this.lastImageRef);
+    this.observerImage = this.observerImage.bind(this);
+    this.observer = React.createRef();
     this.loadImages = this.loadImages.bind(this);
+    this.toggleLoad = this.toggleLoad.bind(this);
   }
 
   componentDidMount() {
@@ -22,52 +23,9 @@ export default class InfinitePhotostream extends React.Component {
       .then(images => {
         this.setState({
           images,
-          numberOfImages: 15,
+          totalImages: images.length,
           loading: true
         });
-      });
-  }
-
-  lastImageRef(node) {
-    if (this.observer.current) {
-      this.observer.current.disconnect();
-    }
-    this.observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        if (this.state.loading) {
-          return null;
-        } else {
-          this.loadImages();
-        }
-      }
-    });
-
-    if (node) {
-      this.observer.current.observe(node);
-    }
-
-    this.setState({ loading: true });
-  }
-
-  load() {
-    this.setState({ loading: false });
-  }
-
-  loadImages() {
-    const numberOfImages = this.state.numberOfImages;
-    fetch(`/api/explore-images/${numberOfImages}`)
-      .then(res => res.json())
-      .then(images => {
-        if (!images[0]) {
-          return null;
-        } else if (images[0]) {
-          const newNumber = numberOfImages + 15;
-          const currentImages = this.state.images;
-          for (let i = 0; i < images.length; i++) {
-            currentImages.push(images[i]);
-          }
-          this.setState({ images: currentImages, numberOfImages: newNumber, loading: true });
-        }
       });
   }
 
@@ -88,11 +46,53 @@ export default class InfinitePhotostream extends React.Component {
     }
   }
 
+  observerImage(node) {
+    if (this.observer.current) {
+      this.observer.current.disconnect();
+    }
+    this.observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        if (this.state.loading) {
+          return null;
+        } else {
+          this.loadImages();
+        }
+      }
+    });
+    if (node) {
+      this.observer.current.observe(node);
+    }
+    this.setState({ loading: true });
+  }
+
+  toggleLoad() {
+    this.setState({ loading: false });
+  }
+
+  loadImages() {
+    let totalImages = this.state.totalImages;
+    fetch(`/api/explore-images/${totalImages}`)
+      .then(res => res.json())
+      .then(images => {
+        if (!images[0]) {
+          return null;
+        } else if (images[0]) {
+          const currentImages = this.state.images;
+          for (let i = 0; i < images.length; i++) {
+            currentImages.push(images[i]);
+          }
+          totalImages = currentImages.length;
+          this.setState({ images: currentImages, totalImages, loading: true });
+        }
+      });
+  }
+
   render() {
     if (!this.state.images) return null;
 
     const hidden = this.state.modalVisible ? '' : 'd-none';
     const src = this.state.modalVisible ? this.state.modalImg.src : '';
+
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
       if (width > height) {
@@ -103,7 +103,6 @@ export default class InfinitePhotostream extends React.Component {
         img.className = ' square';
       }
     };
-
     const onLastImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
       if (width > height) {
@@ -113,24 +112,25 @@ export default class InfinitePhotostream extends React.Component {
       } else {
         img.className = ' square';
       }
-      this.load();
+      this.toggleLoad();
     };
 
     const imageList = this.state.images;
-
     const images = imageList.map((img, index) => {
       if (!img) {
-        return (<h5 key="no-photos"> Sorry, no photos!</h5>);
+        return <h5 key="no-photos"> Sorry, no photos!</h5>;
       } else {
         const { imageUrl, photoId } = img;
-        if (index === imageList.length - 5) {
-          return <img onLoad={onLastImgLoad} ref={this.lastImageRef} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
+        if (index === imageList.length - 10) {
+          return <img onLoad={onImgLoad} ref={this.observerImage} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
+        } else if (index === imageList.length - 1) {
+          return <img onLoad={onLastImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
+        } else {
+          return <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
         }
-        return (
-          <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
-        );
       }
     });
+
     return (
       <>
         <div id="img-expand" className={hidden}>
