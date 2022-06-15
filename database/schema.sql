@@ -8,15 +8,15 @@ create schema "public";
 
 CREATE TABLE "users" (
 	"userId" serial NOT NULL,
-	"username" TEXT NOT NULL,
+	"username" TEXT NOT NULL UNIQUE,
 	"hashedPassword" TEXT NOT NULL,
 	"firstName" TEXT NOT NULL,
 	"lastName" TEXT NOT NULL,
 	"email" TEXT NOT NULL,
 	"location" TEXT NOT NULL,
   "createdAt" timestamp with time zone NOT NULL,
-	"profileImageUrl" TEXT NOT NULL DEFAULT '/images/profile-images/profileImage.jpg',
-	"coverImageUrl" TEXT NOT NULL DEFAULT '/images/profile-images/coverImage.jpg',
+	"profileImageUrl" TEXT NOT NULL DEFAULT 'https://surfr-photographer.s3.amazonaws.com/profileImage.jpg',
+	"coverImageUrl" TEXT NOT NULL DEFAULT 'https://surfr-photographer.s3.amazonaws.com/coverImage.jpg',
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
