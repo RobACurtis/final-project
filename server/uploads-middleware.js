@@ -9,8 +9,6 @@ const s3 = new S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-// const imagesDirectory = path.join(__dirname, 'public/images/profile-images/');
-
 const storage = multerS3({
   s3,
   bucket: process.env.AWS_S3_BUCKET,
@@ -25,17 +23,6 @@ const storage = multerS3({
     done(null, contentType);
   }
 });
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, callback) => {
-//     callback(null, imagesDirectory);
-//   },
-//   filename: (req, file, callback) => {
-//     const fileExtension = path.extname(file.originalname);
-//     const name = `${file.fieldname}-${Date.now()}${fileExtension}`;
-//     callback(null, name);
-//   }
-// });
 
 const uploadsMiddleware = multer({ storage }).single('image');
 
