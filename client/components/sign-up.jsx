@@ -9,7 +9,8 @@ export default class SignUp extends React.Component {
       username: '',
       password: '',
       location: '',
-      email: ''
+      email: '',
+      invalidUsername: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -21,7 +22,7 @@ export default class SignUp extends React.Component {
     } else if (event.target.id === 'lastName') {
       this.setState({ lastName: event.target.value });
     } else if (event.target.id === 'username') {
-      this.setState({ username: event.target.value });
+      this.setState({ username: event.target.value, invalidUsername: false });
     } else if (event.target.id === 'password') {
       this.setState({ password: event.target.value });
     } else if (event.target.id === 'location') {
@@ -51,13 +52,22 @@ export default class SignUp extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => res.json())
       .then(response => {
-        window.location.hash = '#sign-in';
+        if (response.error) {
+          this.setState({
+            username: '',
+            invalidUsername: true
+          });
+        } else {
+          window.location.hash = '#sign-in';
+        }
       })
       .catch(err => console.error('Error:', err));
 
   }
 
   render() {
+    const invalidUsername = this.state.invalidUsername ? 'invalid' : '';
+    const usernamePlaceholder = this.state.invalidUsername ? 'Username already exists' : 'Username';
     return (
       <>
         <div className='form-container'>
@@ -74,7 +84,7 @@ export default class SignUp extends React.Component {
               <input id="lastName" type="last-name" required className="form-control" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange} />
             </div>
             <div className="form-group">
-              <input id="username" type="username" required className="form-control" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
+              <input id="username" type="username" required className={`form-control ${invalidUsername}`} placeholder={usernamePlaceholder} value={this.state.username} onChange={this.handleChange} />
             </div>
             <div className="form-group">
               <input id='password' type="password" required className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleChange} />

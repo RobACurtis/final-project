@@ -53,7 +53,7 @@ export default class SignIn extends React.Component {
   }
 
   render() {
-    const invalidSignIn = this.state.invalidSignIn ? 'invalid-password' : '';
+    const invalidSignIn = this.state.invalidSignIn ? 'invalid' : '';
     const invalidSignInText = this.state.invalidSignIn ? 'invalid-password-text' : 'd-none';
     return (
       <>

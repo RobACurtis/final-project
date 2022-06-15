@@ -590,13 +590,18 @@ nav {
   font-size: 0.9em;
 }
 
-input.invalid-password {
+input.invalid {
   border: 1px solid red;
 }
 
 .invalid-password-text {
   font-size: 0.8em;
   color: red;
+}
+
+input.invalid::placeholder {
+  color: red;
+  font-size: 0.7em;
 }
 
 @media screen and (min-width: 600px) {
