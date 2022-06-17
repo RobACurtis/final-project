@@ -1,11 +1,12 @@
 import React from 'react';
+import Loader from './loader';
 
 export default class InfinitePhotostream extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       images: null,
-      totalImages: 0,
+      newImages: 0,
       loading: true,
       modalVisible: false,
       modalImg: null
@@ -23,7 +24,7 @@ export default class InfinitePhotostream extends React.Component {
       .then(images => {
         this.setState({
           images,
-          totalImages: images.length,
+          newImages: images.length,
           loading: true
         });
       });
@@ -66,8 +67,7 @@ export default class InfinitePhotostream extends React.Component {
   }
 
   loadImages() {
-    let totalImages = this.state.totalImages;
-    fetch(`/api/explore-images/${totalImages}`)
+    fetch(`/api/explore-images/${this.state.images.length}`)
       .then(res => res.json())
       .then(images => {
         if (!images[0]) {
@@ -77,8 +77,8 @@ export default class InfinitePhotostream extends React.Component {
           for (let i = 0; i < images.length; i++) {
             currentImages.push(images[i]);
           }
-          totalImages = currentImages.length;
-          this.setState({ images: currentImages, totalImages, loading: true });
+          const newImages = images.length;
+          this.setState({ images: currentImages, newImages, loading: true });
         }
       });
   }
@@ -90,10 +90,15 @@ export default class InfinitePhotostream extends React.Component {
   render() {
     if (!this.state.images) return null;
 
+    const showLoader = this.state.loading ? '' : 'd-none';
+    const footer = this.state.loading ? 'd-none' : '';
+
     const hidden = this.state.modalVisible ? '' : 'd-none';
     const src = this.state.modalVisible ? this.state.modalImg.src : '';
+    let counter = 0;
 
     const onImgLoad = ({ target: img }) => {
+
       const { offsetHeight: height, offsetWidth: width } = img;
       if (width > height) {
         img.className = ' landscape';
@@ -102,17 +107,10 @@ export default class InfinitePhotostream extends React.Component {
       } else {
         img.className = ' square';
       }
-    };
-    const onLastImgLoad = ({ target: img }) => {
-      const { offsetHeight: height, offsetWidth: width } = img;
-      if (width > height) {
-        img.className = ' landscape';
-      } else if (width < height) {
-        img.className = ' portrait';
-      } else {
-        img.className = ' square';
+      counter++;
+      if (counter === this.state.newImages) {
+        this.toggleLoad();
       }
-      this.toggleLoad();
     };
 
     const imageList = this.state.images;
@@ -123,8 +121,6 @@ export default class InfinitePhotostream extends React.Component {
         const { imageUrl, photoId } = img;
         if (index === imageList.length - 10) {
           return <img onLoad={onImgLoad} ref={this.observerImage} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
-        } else if (index === imageList.length - 1) {
-          return <img onLoad={onLastImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
         } else {
           return <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />;
         }
@@ -133,6 +129,7 @@ export default class InfinitePhotostream extends React.Component {
 
     return (
       <>
+      <Loader show={showLoader}/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>
           <div className='d-flex img-expand-container center'>
@@ -144,7 +141,14 @@ export default class InfinitePhotostream extends React.Component {
           <div id="gallery" className="img-gallery">
             {images}
           </div>
-        </div>
+          <div className={footer}>
+            <div className='d-flex center'>
+              <div className='blue-circle circle'></div>
+              <div className='green-circle circle'></div>
+            </div>
+            <p className='mt-3 mb-5 center footer-text'>You&apos;ve seen all the surfr community photos!</p>
+          </div>
+      </div>
       </>
     );
   }
