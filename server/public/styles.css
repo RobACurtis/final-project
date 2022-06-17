@@ -211,7 +211,7 @@ nav {
   color: white;
   font-size: 1.5em;
   position: fixed;
-  bottom: 13%;
+  bottom: 5%;
   right: 5%;
 }
 
@@ -616,6 +616,7 @@ input.invalid::placeholder {
   justify-content: center;
   position: fixed;
   top: 2em;
+  z-index: 2;
 }
 
 .loading-container-center {
@@ -625,7 +626,12 @@ input.invalid::placeholder {
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 10em;
+  top: 8em;
+  z-index: 2;
+}
+
+.loading-container-upload {
+  top: 5em;
 }
 
 .lds-ellipsis {
@@ -702,6 +708,10 @@ input.invalid::placeholder {
 
   .loading-container-center {
     top: 8em;
+  }
+
+  .loading-container-upload {
+    top: 6em;
   }
 
   .upload-form {

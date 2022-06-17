@@ -1,13 +1,18 @@
 import React from 'react';
+import Loader from './loader';
 
 export default class ImageUploadModal extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: false
+    };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
+    this.setState({ loading: true });
     event.preventDefault();
     const token = window.localStorage.getItem('react-context-jwt');
     const formData = new FormData();
@@ -25,18 +30,17 @@ export default class ImageUploadModal extends React.Component {
         this.fileInputRef.current.value = null;
         this.props.update();
         this.props.toggle();
+        this.setState({ loading: false });
       })
       .catch(err => console.error('Error:', err));
   }
 
   render() {
-    let hidden;
-    if (this.props.display) {
-      hidden = '';
-    } else {
-      hidden = 'd-none';
-    }
+    const showLoader = this.state.loading ? '' : 'd-none';
+    const hidden = this.props.display ? '' : 'd-none';
     return (
+      <>
+    <Loader show={showLoader} container="loading-container-center loading-container-upload" />
     <div id="img-expand" className={hidden}>
         <div className='upload-img-modal-overlay'></div>
         <div className='upload-form-container'>
@@ -61,6 +65,7 @@ export default class ImageUploadModal extends React.Component {
           </div>
           </div>
         </div>
+      </>
     );
   }
 }
