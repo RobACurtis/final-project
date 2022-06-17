@@ -67,6 +67,7 @@ export default class UserProfilePage extends React.Component {
     if (!this.state.user) return null;
     const images = this.state.images[0] ? this.state.images : null;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
+    const footerText = images ? 'You\'ve seen all of your photos!' : `${firstName}, you've got no photos!`;
     const emailHref = `mailto:${email}`;
     return (
       <>
@@ -107,7 +108,7 @@ export default class UserProfilePage extends React.Component {
             <div className='blue-circle circle'></div>
             <div className='green-circle circle'></div>
           </div>
-          <p className='mt-3 mb-5 center footer-text'>You&apos;ve seen all of {firstName}&apos;s photos!</p>
+          <p className='mt-3 mb-5 center footer-text'>{footerText}</p>
         </div>
       </>
     );
