@@ -9,6 +9,7 @@ import ProfilePage from './pages/profilePage';
 import Navbar from './components/navbar';
 import AuthPage from './pages/authpage';
 import UserProfilePage from './pages/userProfilePage';
+import Loader from './components/loader'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -75,6 +76,7 @@ export default class App extends React.Component {
     return (
     <>
     <AppContext.Provider value = {contextValue}>
+          <Loader />
       <Navbar />
       { this.renderPage() }
     </AppContext.Provider>
