@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
+import Loader from './loader';
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -7,7 +8,8 @@ export default class SignIn extends React.Component {
     this.state = {
       username: '',
       password: '',
-      invalidSignIn: false
+      invalidSignIn: false,
+      loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +25,7 @@ export default class SignIn extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ loading: true });
     const req = {
       method: 'POST',
       headers: {
@@ -53,10 +56,12 @@ export default class SignIn extends React.Component {
   }
 
   render() {
+    const showLoader = this.state.loading ? '' : 'd-none';
     const invalidSignIn = this.state.invalidSignIn ? 'invalid' : '';
     const invalidSignInText = this.state.invalidSignIn ? 'invalid-password-text' : 'd-none';
     return (
       <>
+        <Loader show={showLoader} container="loading-container-top" />
         <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
             <div className='circles'>

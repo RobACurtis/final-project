@@ -4,7 +4,7 @@ export default class Loader extends React.Component {
   render() {
     return (
     <>
-    <div className={`loading-container ${this.props.show}` }>
+    <div className={`${this.props.show} ${this.props.container}` }>
       <div className="lds-ellipsis">
         <div></div>
         <div></div>

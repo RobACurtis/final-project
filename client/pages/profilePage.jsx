@@ -36,9 +36,10 @@ export default class ProfilePage extends React.Component {
 
   render() {
     if (!this.state.user) return null;
-    const images = this.state.images;
+    const images = this.state.images[0].image ? this.state.images : null;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
     const emailHref = `mailto:${email}`;
+    const footerText = images ? `You've seen all of ${firstName}'s photos!` : `${firstName} has no photos!`;
 
     return (
     <>
@@ -68,6 +69,13 @@ export default class ProfilePage extends React.Component {
       </ul>
     </nav>
     <Photostream images={images} firstName={firstName}/>
+        <div>
+        <div className='d-flex center'>
+          <div className='blue-circle circle'></div>
+          <div className='green-circle circle'></div>
+        </div>
+        <p className='mt-3 mb-5 center footer-text'>{footerText}</p>
+      </div>
     </>
     );
   }

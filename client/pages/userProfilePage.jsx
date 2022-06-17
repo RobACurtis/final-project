@@ -65,7 +65,7 @@ export default class UserProfilePage extends React.Component {
 
   render() {
     if (!this.state.user) return null;
-    const images = this.state.images;
+    const images = this.state.images[0] ? this.state.images : null;
     const { firstName, lastName, email, location, coverImageUrl, profileImageUrl } = this.state.user;
     const emailHref = `mailto:${email}`;
     return (
@@ -102,6 +102,13 @@ export default class UserProfilePage extends React.Component {
           <button className='upload-images-button' onClick={this.toggleUploadGalleryImageModal}><i className="fa-solid fa-images"></i> <span className='upload-text'>Upload Images</span></button>
         </nav>
         <UserPhotostream images={images} update={this.updateProfile}/>
+        <div>
+          <div className='d-flex center'>
+            <div className='blue-circle circle'></div>
+            <div className='green-circle circle'></div>
+          </div>
+          <p className='mt-3 mb-5 center footer-text'>You&apos;ve seen all of {firstName}&apos;s photos!</p>
+        </div>
       </>
     );
   }

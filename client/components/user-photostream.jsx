@@ -1,5 +1,6 @@
 import React from 'react';
 import DeleteModal from './delete-modal';
+import Loader from './loader';
 
 export default class UserPhotostream extends React.Component {
   constructor(props) {
@@ -7,11 +8,13 @@ export default class UserPhotostream extends React.Component {
     this.state = {
       modalVisible: false,
       modalImg: null,
-      deleteModalVisible: false
+      deleteModalVisible: false,
+      loading: true
     };
     this.imgModal = this.imgModal.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.updateComponent = this.updateComponent.bind(this);
+    this.toggleLoad = this.toggleLoad.bind(this);
   }
 
   imgModal(event) {
@@ -31,6 +34,10 @@ export default class UserPhotostream extends React.Component {
     }
   }
 
+  toggleLoad() {
+    this.setState({ loading: !this.state.loading });
+  }
+
   toggleDeleteModal(event) {
     this.setState({ deleteModalVisible: !this.state.deleteModalVisible });
   }
@@ -44,7 +51,13 @@ export default class UserPhotostream extends React.Component {
   }
 
   render() {
-    if (!this.props.images) return null;
+    if (!this.props.images || !this.props.images[0]) return;
+
+    const showLoader = this.state.loading ? '' : 'd-none';
+    const hidden = this.state.modalVisible ? '' : 'd-none';
+    const src = this.state.modalVisible ? this.state.modalImg.src : '';
+    const id = this.state.modalVisible ? this.state.modalImg.id : '';
+    let counter = 0;
 
     const onImgLoad = ({ target: img }) => {
       const { offsetHeight: height, offsetWidth: width } = img;
@@ -55,25 +68,22 @@ export default class UserPhotostream extends React.Component {
       } else {
         img.className = 'square';
       }
+      counter++;
+      if (counter === this.props.images.length && this.state.loading === true) {
+        this.toggleLoad();
+      }
     };
 
-    const hidden = this.state.modalVisible ? '' : 'd-none';
-    const src = this.state.modalVisible ? this.state.modalImg.src : '';
-    const id = this.state.modalVisible ? this.state.modalImg.id : '';
-
     const images = this.props.images.map(img => {
-      if (!img) {
-        return (<h5 key="no-photos">You have no photos yet!</h5>);
-      } else {
-        const { imageUrl, photoId } = img;
-        return (
+      const { imageUrl, photoId } = img;
+      return (
              <img onLoad={onImgLoad} onClick={this.imgModal} key={photoId} src={imageUrl} id={photoId} alt='surfing' />
-        );
-      }
+      );
     });
 
     return (
       <>
+        <Loader show={showLoader} container="loading-container-center" />
         <DeleteModal img={this.state.modalImg} display={!this.state.deleteModalVisible} toggle={this.toggleDeleteModal} update={this.updateComponent}/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>

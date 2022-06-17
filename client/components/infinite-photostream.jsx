@@ -92,7 +92,6 @@ export default class InfinitePhotostream extends React.Component {
 
     const showLoader = this.state.loading ? '' : 'd-none';
     const footer = this.state.loading ? 'd-none' : '';
-
     const hidden = this.state.modalVisible ? '' : 'd-none';
     const src = this.state.modalVisible ? this.state.modalImg.src : '';
     let counter = 0;
@@ -129,7 +128,7 @@ export default class InfinitePhotostream extends React.Component {
 
     return (
       <>
-      <Loader show={showLoader}/>
+      <Loader show={showLoader} container="loading-container-top"/>
         <div id="img-expand" className={hidden}>
           <div className='img-modal-overlay'></div>
           <div className='d-flex img-expand-container center'>
