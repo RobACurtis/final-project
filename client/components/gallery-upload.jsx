@@ -29,6 +29,10 @@ export default class GalleryImageUploadModal extends React.Component {
     fetch('/api/auth/gallery-images', req)
       .then(res => res.json())
       .then(response => {
+        if (response.error) {
+          window.location.hash = '#error';
+          return;
+        }
         this.fileInputRef.current.value = null;
         this.props.update();
         this.props.toggle();

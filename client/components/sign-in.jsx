@@ -45,14 +45,18 @@ export default class SignIn extends React.Component {
           this.setState({
             username: '',
             password: '',
-            invalidSignIn: true
+            invalidSignIn: true,
+            loading: false
           });
         } else {
           this.context.handleSignIn(response);
           window.location.hash = '#';
         }
       })
-      .catch(err => console.error('Error:', err));
+      .catch(err => {
+        console.error('Error:', err);
+        window.location.hash = '#error';
+      });
   }
 
   render() {

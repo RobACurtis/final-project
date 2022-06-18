@@ -9,6 +9,8 @@ import ProfilePage from './pages/profilePage';
 import Navbar from './components/navbar';
 import AuthPage from './pages/authpage';
 import UserProfilePage from './pages/userProfilePage';
+import ErrorPage from './pages/errorpage';
+import NotFound from './pages/notfound';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -64,6 +66,10 @@ export default class App extends React.Component {
       return <AuthPage />;
     } else if (route.path === 'sign-in') {
       return <AuthPage />;
+    } else if (route.path === 'error') {
+      return <ErrorPage />;
+    } else {
+      return <NotFound />;
     }
   }
 

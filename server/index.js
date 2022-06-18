@@ -110,7 +110,9 @@ app.post('/api/auth/sign-up', (req, res, next) => {
           const account = result.rows[0];
           res.status(201).json(account);
         })
-        .catch(err => next(err));
+        .catch(err => {
+          next(err);
+        });
     })
     .catch(err => next(err));
 });

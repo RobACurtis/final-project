@@ -27,6 +27,10 @@ export default class ImageUploadModal extends React.Component {
     fetch('/api/auth/profile-image', req)
       .then(res => res.json())
       .then(response => {
+        if (response.error) {
+          window.location.hash = '#error';
+          return;
+        }
         this.fileInputRef.current.value = null;
         this.props.update();
         this.props.toggle();

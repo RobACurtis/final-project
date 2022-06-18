@@ -22,6 +22,10 @@ export default class InfinitePhotostream extends React.Component {
     fetch('/api/explore-images/0')
       .then(res => res.json())
       .then(images => {
+        if (images.error) {
+          window.location.hash = '#error';
+          return;
+        }
         this.setState({
           images,
           newImages: images.length,

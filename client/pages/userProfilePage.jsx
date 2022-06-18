@@ -35,6 +35,10 @@ export default class UserProfilePage extends React.Component {
     fetch(`/api/photographer-profile/${userId}`)
       .then(res => res.json())
       .then(user => {
+        if (user.error) {
+          window.location.hash = '#error';
+          return;
+        }
         const { firstName, lastName, email, location, coverImageUrl, profileImageUrl, photos } = user[0];
         const images = photos.map(image => {
           if (!image) {

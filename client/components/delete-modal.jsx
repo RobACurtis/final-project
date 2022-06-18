@@ -24,11 +24,18 @@ export default class DeleteModal extends React.Component {
     fetch(`/api/auth/delete-image/${this.props.img.id}`, req)
       .then(res => res.json())
       .then(response => {
+        if (response.error) {
+          window.location.hash = '#error';
+          return;
+        }
         this.props.toggle();
         this.props.update();
         this.setState({ loading: false });
       })
-      .catch(err => console.error('Error:', err));
+      .catch(err => {
+        console.error('Error:', err);
+        window.hash = '#error';
+      });
   }
 
   render() {
