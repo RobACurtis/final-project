@@ -48,6 +48,7 @@ app.get('/api/explore-people', (req, res, next) => {
             "profileImageUrl",
             "userId"
        from "users"
+       order by "userId"
   `;
   db.query(sql)
     .then(result => res.json(result.rows))
