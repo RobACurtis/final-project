@@ -11,7 +11,6 @@ function errorMiddleware(err, req, res, next) {
       error: 'invalid access token'
     });
   } else if (err.code === '23505') {
-    console.error(err);
     res.status(401).json({
       error: 'invalid username'
     });

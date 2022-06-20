@@ -55,15 +55,21 @@ export default class SignUp extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => {
         if (res.status === 401) {
+          return res.status;
+        }
+        return res.json();
+      })
+      .then(response => {
+        if (response === 401) {
           this.setState({
             username: '',
             invalidUsername: true,
             loading: false
           });
-        } else if (res.status === 201) {
-          window.location.hash = '#sign-in';
-        } else {
+        } else if (response.error) {
           window.location.hash = '#error';
+        } else {
+          window.location.hash = '#sign-in';
         }
       })
       .catch(err => {

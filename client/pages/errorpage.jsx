@@ -2,6 +2,7 @@ import React from 'react';
 
 export default class ErrorPage extends React.Component {
   render() {
+    const subtitle = this.props.subtitle ? this.props.subtitle : 'An unexpected error occured!';
     return (
       <>
         <div id="home-page">
@@ -14,7 +15,10 @@ export default class ErrorPage extends React.Component {
           <div id="explore-text" className="d-flex center">
             <div className="center">
               <h1 className="home-title">Oops!</h1>
-              <h3 className="home-subtitle mt-4 ">An unexpected error occured!</h3>
+              <h3 className="error-subtitle mt-4 ">{subtitle}</h3>
+              <div>
+                <a href='#' className="mt-5 btn btn-light explore-button">Home</a>
+              </div>
             </div>
           </div>
         </div>

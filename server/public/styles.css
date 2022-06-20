@@ -128,6 +128,11 @@ nav {
   display: none;
 }
 
+.error-subtitle {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
 .center {
   justify-content: center;
   align-items: center;
@@ -875,6 +880,10 @@ input.invalid::placeholder {
   }
 
   .home-subtitle {
+    font-size: 1.8em;
+  }
+
+  .error-subtitle {
     font-size: 1.8em;
   }
 }

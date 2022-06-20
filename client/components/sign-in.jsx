@@ -39,15 +39,23 @@ export default class SignIn extends React.Component {
     };
 
     fetch('/api/auth/sign-in', req)
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          return res.status;
+        } else {
+          return res.json();
+        }
+      })
       .then(response => {
-        if (!response.token) {
+        if (response === 401) {
           this.setState({
             username: '',
             password: '',
             invalidSignIn: true,
             loading: false
           });
+        } else if (response.error) {
+          window.location.hash = '#error';
         } else {
           this.context.handleSignIn(response);
           window.location.hash = '#';
