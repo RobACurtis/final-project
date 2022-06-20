@@ -47,28 +47,29 @@ export default class ImageUploadModal extends React.Component {
     <Loader show={showLoader} container="loading-container-center loading-container-upload" />
     <div id="img-expand" className={hidden}>
         <div className='upload-img-modal-overlay'></div>
-        <div className='upload-form-container'>
-          <div className='upload-form'>
-            <button className='upload-close' onClick={this.props.toggle}>
-              <i id="close-modal" className="fa fa-window-close text-black"></i>
-            </button>
-            <h3>Edit Profile Photo</h3>
-            <form onSubmit={this.handleSubmit}>
-              <div className="d-flex justify-content-between align-items-center">
-                <input
-                  required
-                  type="file"
-                  name="image"
-                  ref={this.fileInputRef}
-                  accept=".png, .jpg, .jpeg" />
-                <button type="submit" className="btn upload-button">
-                  Upload
-                </button>
-              </div>
-            </form>
+          <div className='upload-form-container'>
+            <div className='upload-form'>
+              <button className='upload-close' onClick={this.props.toggle}>
+                <i id="close-modal" className="fa fa-window-close text-black"></i>
+              </button>
+              <h3>Edit Profile Photo</h3>
+              <form onSubmit={this.handleSubmit}>
+                <div className="d-flex justify-content-between align-items-center">
+                  <input
+                    required
+                    type="file"
+                    name="image"
+                    ref={this.fileInputRef}
+                    className='form-control'
+                    accept=".png, .jpg, .jpeg" />
+                  <button type="submit" className="btn upload-button">
+                    Upload
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-          </div>
-        </div>
+       </div>
       </>
     );
   }

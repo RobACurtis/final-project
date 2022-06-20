@@ -43,8 +43,8 @@ export default class Home extends React.Component {
         <img key={imageId} src={img} alt='surfing' className={`img-homepage ${opacity}`} />
       );
     });
-    const buttonText = user ? 'Explore' : 'Sign Up';
-    const href = user ? '#explore' : '#sign-up';
+    const buttonText = user ? 'Explore' : 'Log In';
+    const href = user ? '#explore' : '#sign-in';
     const subtext = user ? 'd-none' : '';
     return (
     <>
