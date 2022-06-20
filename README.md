@@ -72,9 +72,9 @@ I built this full stack, single page application out of my love for surfing and 
     ```
 
 1. This .env will require you to populate some information.
-- You will need an AWS account, AWS access key ID, secret access key, and unique bucket name.
-- This is because users will store their images via S3
-- You can create an account [here](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all)
+      - You will need an AWS account, AWS access key ID, secret access key, and unique bucket name.
+      - This is because users will store their images via S3
+      - You can create an account [here](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all)
 
   ```shell
   AWS_ACCESS_KEY_ID=yourkey
