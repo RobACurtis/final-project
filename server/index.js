@@ -103,12 +103,15 @@ app.post('/api/auth/sign-up', (req, res, next) => {
       const sql = `
       insert into "users" ("username", "hashedPassword", "location", "firstName", "lastName", "email", "createdAt")
       values ($1, $2, $3, $4, $5, $6, now())
+      on conflict ("username")
+      do nothing
       returning "username", "firstName", "lastName", "email", "createdAt", "location";
       `;
       const params = [username, hashedPassword, location, firstName, lastName, email];
       db.query(sql, params)
         .then(result => {
           const account = result.rows[0];
+          if (!account) res.status(401).json({ error: 'username already exists' });
           res.status(201).json(account);
         })
         .catch(err => {
