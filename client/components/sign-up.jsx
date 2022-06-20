@@ -64,7 +64,6 @@ export default class SignUp extends React.Component {
         } else if (response.error) {
           window.location.hash = '#error';
         } else {
-          this.props.username(response.username);
           window.location.hash = '#sign-in';
         }
       })

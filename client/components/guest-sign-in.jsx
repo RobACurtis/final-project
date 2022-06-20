@@ -2,12 +2,12 @@ import React from 'react';
 import AppContext from '../lib/app-context';
 import Loader from './loader';
 
-export default class SignIn extends React.Component {
+export default class GuestSignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: 'JJPhoto',
+      password: '12345',
       invalidSignIn: false,
       loading: false
     };
@@ -97,4 +97,4 @@ export default class SignIn extends React.Component {
   }
 }
 
-SignIn.contextType = AppContext;
+GuestSignIn.contextType = AppContext;

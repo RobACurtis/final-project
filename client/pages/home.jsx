@@ -44,7 +44,7 @@ export default class Home extends React.Component {
       );
     });
     const buttonText = user ? 'Explore' : 'Log In';
-    const href = user ? '#explore' : '#sign-in';
+    const href = user ? '#explore' : '#guest-sign-in';
     const subtext = user ? 'd-none' : '';
     return (
     <>
