@@ -63,7 +63,7 @@ I built this full stack, single page application out of my love for coding and m
 1. Clone the repository.
 
     ```shell
-    git clone git@github.com:RobACurtis/final-project.git
+    git clone git@github.com:RobACurtis/surfr-photographer.git
     ```
 
 1. Install all dependencies with NPM.
