@@ -48,7 +48,7 @@ export default class DeleteModal extends React.Component {
       <div id="img-expand" className={hidden}>
         <div className='delete-modal-overlay'></div>
         <div className='delete-container'>
-          <div className='delete-form'>
+          <div className='delete-form-row'>
             <button className='delete-close' onClick={this.props.toggle}>
               <i id="close-modal" className="fa fa-window-close text-black"></i>
             </button>

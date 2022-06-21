@@ -5,11 +5,11 @@ import Home from './pages/home';
 import jwtDecode from 'jwt-decode';
 import Explore from './pages/explore';
 import parseRoute from './lib/parse-route';
-import ProfilePage from './pages/profilePage';
+import ProfilePage from './pages/profile-page';
 import Navbar from './components/navbar';
-import AuthPage from './pages/authpage';
-import UserProfilePage from './pages/userProfilePage';
-import ErrorPage from './pages/errorpage';
+import AuthPage from './pages/auth-page';
+import UserProfilePage from './pages/user-profile-page';
+import ErrorPage from './pages/error-page';
 
 export default class App extends React.Component {
   constructor(props) {

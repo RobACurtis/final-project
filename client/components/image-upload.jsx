@@ -48,7 +48,7 @@ export default class ImageUploadModal extends React.Component {
     <div id="img-expand" className={hidden}>
         <div className='upload-img-modal-overlay'></div>
           <div className='upload-form-container'>
-            <div className='upload-form'>
+            <div className='upload-form-row'>
               <button className='upload-close' onClick={this.props.toggle}>
                 <i id="close-modal" className="fa fa-window-close text-black"></i>
               </button>

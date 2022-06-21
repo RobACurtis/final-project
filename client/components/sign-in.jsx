@@ -16,6 +16,7 @@ export default class SignIn extends React.Component {
   }
 
   handleChange(event) {
+    if (this.state.invalidSignIn) this.setState({ invalidSignIn: false });
     if (event.target.id === 'username') {
       this.setState({ username: event.target.value });
     } else if (event.target.id === 'password') {
@@ -70,13 +71,13 @@ export default class SignIn extends React.Component {
   render() {
     const showLoader = this.state.loading ? '' : 'd-none';
     const invalidSignIn = this.state.invalidSignIn ? 'invalid' : '';
-    const invalidSignInText = this.state.invalidSignIn ? 'invalid-password-text' : 'd-none';
+    const invalidSignInText = this.state.invalidSignIn ? 'invalid-text' : 'd-none';
     return (
       <>
         <Loader show={showLoader} container="loading-container-top" />
         <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
-            <div className='circles'>
+            <div className='circles-row'>
               <div className='blue-circle circle'></div>
               <div className='green-circle circle'></div>
             </div>
