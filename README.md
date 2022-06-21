@@ -1,8 +1,8 @@
-# final-project
+# surfr-photographer
 
 #### A web application for surf photographers who want to showcase their work to the world. 
 
-I built this full stack, single page application out of my love for surfing and my love for coding. I used to be a very active photographer, and I was a regular visitor to flickr.com as I browsed for inspiration for my own photography. I wanted to take on the challenge to replicate flickr's design and layout as well as put my own spin on it, and make an application exclusivley for surf photographers. 
+I built this full stack, single page application out of my love for coding and my love for surfing. I used to be a very active photographer, and I was a regular visitor to flickr.com as I browsed for inspiration for my own photography. I wanted to take on the challenge to replicate flickr's design and layout as well as put my own spin on it, and make an application exclusively for surf photographers. 
 
 
 ## Technologies Used
@@ -17,6 +17,7 @@ I built this full stack, single page application out of my love for surfing and 
   - babel
   - Webpack
   - Argon2
+  - Multer
   - JSON webtoken
   - Dotenv
   - npm
@@ -27,7 +28,7 @@ I built this full stack, single page application out of my love for surfing and 
   
  ## Feature List
   - User can delete a photo from their gallery.
-  - User can scroll infintely in the explore page gallery
+  - User can scroll infinitely in the explore gallery.
   - User can upload images to a gallery
   - User can edit their profile image.
   - User can log into account.
@@ -40,12 +41,12 @@ I built this full stack, single page application out of my love for surfing and 
 ## Stretch Features 
   - User can log out.
   - User can see their profile photo in the navbar when logged in.
-  - User can edit their profile info. 
+  - User can edit their profile information. 
 
 # Development
 
 ### System Requirements 
-- Node.Js 16 or higher
+- Node.JS 16 or higher
 - NPM 6 or higher
 - Postgres
 
@@ -114,7 +115,7 @@ npm run dev
   ```
 
 
-10. View your database through pgweb. Look at it in your browser at localhost:8081
+10. View your database through pgweb. You can view it in your browser at localhost:8081
 
 ```shell
 pgweb --db=yourDatabaseName
