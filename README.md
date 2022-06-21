@@ -74,46 +74,47 @@ I built this full stack, single page application out of my love for surfing and 
 1. This .env will require you to populate some information.
       - You will need an AWS account, AWS access key ID, secret access key, and unique bucket name.
       - This is because users will store their images via S3
-      - You can create an account [here](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all)
-
+      - You can create an account [here](https://portal.aws.amazon.com/billing/signup?refid=em_127222&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start/email)
+      
   ```shell
-  AWS_ACCESS_KEY_ID=yourkey
-  AWS_SECRET_ACCESS_KEY=yourkey
-  AWS_S3_BUCKET=yourbucketname
-    ```
-    
-1. Start PostgreSQL 
+
+        AWS_ACCESS_KEY_ID=yourkey
+        AWS_SECRET_ACCESS_KEY=yourkey
+        AWS_S3_BUCKET=yourbucketname  
+  ```
+
+
+5. Start postgreSQL.
 
   ```shell
 sudo service postgresql start
   ```
-  
-1. Check to see if PostgreSQL is running
+6. Check if postgreSQL is running.
     
 ```shell
 sudo service postgresql status
   ```
 
-1. Create a database (make sure it matches .env.example)
+7. Create a database (make sure it matches .env.example.
 
 ```shell
 createdb yourDatabaseName
   ```
 
-1. Import your database into Postgres
+8. Import your database into Postgres
 
 ```shell
 npm run db:import
   ```
 
-1. Start the project. Once started, you can view the application by opening localhost:3000 in your browser
+9. Start the project. Once started, you can view the application by opening localhost:3000 in your browser
 
 ```shell
 npm run dev
   ```
 
 
-1. View your database through pgweb. Look at it in your browser at localhost:8081
+10. View your database through pgweb. Look at it in your browser at localhost:8081
 
 ```shell
 pgweb --db=yourDatabaseName
