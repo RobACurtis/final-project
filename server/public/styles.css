@@ -1,14 +1,5 @@
-/* navbar  */
 * {
   font-family: Inter, serif;
-}
-
-ul {
-  padding: 0;
-}
-
-li {
-  list-style-type: none;
 }
 
 a,
@@ -22,6 +13,16 @@ a:active {
 
 body {
   background-color: #f8f8ff;
+}
+
+/* navbar  */
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }
 
 nav {
@@ -41,14 +42,8 @@ nav {
   top: 0.9rem;
 }
 
-.explore-link {
-  color: white;
-  text-decoration: none;
+.margin-ten-percent {
   margin-right: 10%;
-}
-
-.explore-link:hover {
-  color: white;
 }
 
 .icon {
@@ -61,10 +56,9 @@ nav {
   padding-top: 3px;
 }
 
-/* light navbar */
+/* light explore navbar */
 
 #navbar-light {
-  z-index: 0;
   top: 3.8rem;
   width: 100%;
   margin-bottom: 7em;
@@ -128,11 +122,6 @@ nav {
   display: none;
 }
 
-.error-subtitle {
-  font-size: 1.5em;
-  font-weight: 300;
-}
-
 .center {
   justify-content: center;
   align-items: center;
@@ -144,6 +133,13 @@ nav {
   font-size: 1.6em;
   font-weight: 400;
   border-radius: 3px;
+}
+
+/* error page  */
+
+.error-subtitle {
+  font-size: 1.5em;
+  font-weight: 300;
 }
 
 /* explore page */
@@ -298,7 +294,6 @@ nav {
 /* profile page */
 
 .profile-navbar-light {
-  z-index: 0;
   width: 100%;
   cursor: default;
   margin-bottom: 3em;
@@ -376,7 +371,6 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0;
   border: none;
 }
 
@@ -392,11 +386,6 @@ nav {
   border: none;
   color: black;
   background-color: white;
-}
-
-.edit-profile-image:hover {
-  opacity: 100;
-  cursor: pointer;
 }
 
 .upload-images-button {
@@ -421,7 +410,28 @@ nav {
 
 /* upload image modal component  */
 
-.upload-form {
+.upload-img-modal-overlay {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-image: linear-gradient(rgba(52, 58, 64, 90%), rgba(52, 58, 64, 90%));
+}
+
+.upload-form-container {
+  margin: auto;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 3%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-form-row {
   display: flex;
   flex-direction: column;
   flex-wrap: none;
@@ -441,18 +451,6 @@ nav {
   color: white;
 }
 
-.upload-form-container {
-  margin: auto;
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 3%;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .upload-close {
   position: absolute;
   right: 1em;
@@ -461,30 +459,15 @@ nav {
   background-color: rgba(255, 255, 255, 0);
 }
 
-.upload-img-modal-overlay {
+/* delete modal */
+
+.delete-modal-overlay {
   height: 100vh;
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 1;
-  background-image: linear-gradient(rgba(52, 58, 64, 90%), rgba(52, 58, 64, 90%));
-}
-
-/* delete modal */
-
-.delete-form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: none;
-  text-align: center;
-  justify-content: space-between;
-  background-color: white;
-  box-shadow: 3px 4px 2px rgb(105, 105, 105);
-  height: 20vh;
-  width: 90%;
-  border-radius: 3px;
-  padding: 1.5em;
-  position: relative;
+  z-index: 1033;
+  background-image: linear-gradient(rgba(124, 124, 124, 0.9), rgba(124, 124, 124, 0.9));
 }
 
 .delete-container {
@@ -499,21 +482,27 @@ nav {
   align-items: center;
 }
 
+.delete-form-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: none;
+  text-align: center;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 3px 4px 2px rgb(105, 105, 105);
+  height: 20vh;
+  width: 90%;
+  border-radius: 3px;
+  padding: 1.5em;
+  position: relative;
+}
+
 .delete-close {
   position: absolute;
   right: 1em;
   top: 0.5em;
   border: none;
   background-color: rgba(255, 255, 255, 0);
-}
-
-.delete-modal-overlay {
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1033;
-  background-image: linear-gradient(rgba(124, 124, 124, 0.9), rgba(124, 124, 124, 0.9));
 }
 
 /* signup page */
@@ -527,7 +516,6 @@ nav {
   width: 100%;
   background-color: white;
   position: fixed;
-  z-index: -1;
 }
 
 .form-container {
@@ -563,7 +551,7 @@ nav {
   height: 3.3em;
 }
 
-.circles {
+.circles-row {
   display: flex;
   justify-content: center;
   margin-bottom: 1em;
@@ -604,14 +592,14 @@ input.invalid {
   border: 1px solid red;
 }
 
-.invalid-password-text {
-  font-size: 0.8em;
-  color: red;
-}
-
 input.invalid::placeholder {
   color: red;
   font-size: 0.7em;
+}
+
+.invalid-text {
+  font-size: 0.8em;
+  color: red;
 }
 
 /* loading spinner */
@@ -731,6 +719,15 @@ input.invalid::placeholder {
 
   .upload-images-button {
     margin: 0 4em 2em 0;
+  }
+
+  .edit-profile-image {
+    opacity: 0;
+  }
+
+  .edit-profile-image:hover {
+    opacity: 100;
+    cursor: pointer;
   }
 
   .upload-text {

@@ -1,5 +1,5 @@
 import React from 'react';
-import People from './people';
+import People from './user-cards';
 import InfinitePhotostream from './infinite-photostream';
 
 export default function ExploreComponent(props) {

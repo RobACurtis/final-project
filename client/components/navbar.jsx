@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
   <nav id="nav" className={`navbar navbar-expand-lg bg-dark fixed-top ${navOpacity}`}>
     <div className="container-fluid">
       <a href="#"><img className="logo" src="/logo.svg" alt="surfer logo" /> </a>
-        <div className='d-flex align-items-end explore-link'>
+        <div className='d-flex align-items-end margin-ten-percent'>
         <a href="#explore" className={`explore-link mx-4 mb-1 ${hideExploreNavigation}`}>Explore</a>
             <a href="#user-profile" className={`explore-link mx-3 mt-2 icon ${hideProfileIcon}`}>
           <i className="fa fa-user"></i>
