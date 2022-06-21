@@ -24,7 +24,9 @@ I built this full stack, single page application out of my love for coding and m
   - AWS S3
   - Heroku
 
+  ## Live Demo
   
+  Try the application live [surfr-photographer](https://surfr-photographer.herokuapp.com/)
   
  ## Feature List
   - User can delete a photo from their gallery.
@@ -41,7 +43,17 @@ I built this full stack, single page application out of my love for coding and m
 ## Stretch Features 
   - User can log out.
   - User can see their profile photo in the navbar when logged in.
-  - User can edit their profile information. 
+  - User can edit their profile information.
+  
+## Preview
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/96838616/174838196-61e924a3-79e3-40b6-a6e1-ae5241e724b9.gif)
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/96838616/174838848-15b1723d-ddca-465c-91d9-00366bb1bb1a.gif)
+
+
+
+
+
 
 # Development
 
