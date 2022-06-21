@@ -695,6 +695,7 @@ input.invalid::placeholder {
 }
 
 @media screen and (min-width: 600px) {
+  /* loader  */
   .loading-container-top {
     top: 4em;
   }
@@ -706,6 +707,8 @@ input.invalid::placeholder {
   .loading-container-upload {
     top: 6em;
   }
+
+  /* form controls profile page */
 
   .upload-form {
     height: 10em;
@@ -749,6 +752,8 @@ input.invalid::placeholder {
     bottom: 5%;
   }
 
+  /* photo gallery  */
+
   .landscape {
     width: 60%;
     flex-grow: 2;
@@ -763,9 +768,13 @@ input.invalid::placeholder {
     flex-grow: 0;
   }
 
+  /* home page  */
+
   .home-title {
     font-size: 3em;
   }
+
+  /* sign up / sign in  */
 
   .background-form {
     display: none;
@@ -830,6 +839,16 @@ input.invalid::placeholder {
     width: 35rem;
   }
 
+  .home-title {
+    font-size: 3.5em;
+  }
+
+  .home-subtitle {
+    font-size: 1.5em;
+    font-weight: 300;
+    display: inline;
+  }
+
   .landscape {
     width: 36%;
   }
@@ -840,16 +859,6 @@ input.invalid::placeholder {
 
   .square {
     width: 30%;
-  }
-
-  .home-title {
-    font-size: 3.5em;
-  }
-
-  .home-subtitle {
-    font-size: 1.5em;
-    font-weight: 300;
-    display: inline;
   }
 }
 
