@@ -9,6 +9,7 @@ import ProfilePage from './pages/profilePage';
 import Navbar from './components/navbar';
 import AuthPage from './pages/authpage';
 import UserProfilePage from './pages/userProfilePage';
+import ErrorPage from './pages/errorpage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -62,8 +63,12 @@ export default class App extends React.Component {
       }
     } else if (route.path === 'sign-up') {
       return <AuthPage />;
-    } else if (route.path === 'sign-in') {
+    } else if (route.path === 'sign-in' || route.path === 'guest-sign-in') {
       return <AuthPage />;
+    } else if (route.path === 'error') {
+      return <ErrorPage />;
+    } else {
+      return <ErrorPage subtitle="Page Not Found!"/>;
     }
   }
 
@@ -75,6 +80,7 @@ export default class App extends React.Component {
     return (
     <>
     <AppContext.Provider value = {contextValue}>
+          {/* <Loader /> */}
       <Navbar />
       { this.renderPage() }
     </AppContext.Provider>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from './loader';
 
 export default class People extends React.Component {
   constructor(props) {
@@ -15,9 +16,13 @@ export default class People extends React.Component {
   }
 
   render() {
-    if (!this.state.users) return null;
+    if (!this.state.users) {
+      return (
+      <Loader container="loading-container-top"/>
+      );
+    }
     const users = this.state.users;
-    const userCards = users.map(user => {
+    const userCards = users.map((user, index) => {
       const { firstName, lastName, location, profileImageUrl, userId } = user;
       return (
         <a href={`#photographer-profile?userId=${userId}`} key={`${userId}-link`} >

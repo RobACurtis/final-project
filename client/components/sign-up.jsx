@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from './loader';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ export default class SignUp extends React.Component {
       password: '',
       location: '',
       email: '',
-      invalidUsername: false
+      invalidUsername: false,
+      loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -34,6 +36,7 @@ export default class SignUp extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ loading: true });
     const req = {
       method: 'POST',
       headers: {
@@ -52,24 +55,31 @@ export default class SignUp extends React.Component {
     fetch('/api/auth/sign-up', req)
       .then(res => res.json())
       .then(response => {
-        if (response.error) {
+        if (response.error === 'username already exists') {
           this.setState({
             username: '',
-            invalidUsername: true
+            invalidUsername: true,
+            loading: false
           });
+        } else if (response.error) {
+          window.location.hash = '#error';
         } else {
           window.location.hash = '#sign-in';
         }
       })
-      .catch(err => console.error('Error:', err));
-
+      .catch(err => {
+        console.error('Error:', err);
+        window.location.hash = '#error';
+      });
   }
 
   render() {
+    const showLoader = this.state.loading ? '' : 'd-none';
     const invalidUsername = this.state.invalidUsername ? 'invalid' : '';
     const usernamePlaceholder = this.state.invalidUsername ? 'Username already exists' : 'Username';
     return (
       <>
+        <Loader show={showLoader} container="loading-container-top" />
         <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
             <div className='circles'>
