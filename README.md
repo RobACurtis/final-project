@@ -46,14 +46,9 @@ I built this full stack, single page application out of my love for coding and m
   - User can edit their profile information.
   
 ## Preview
+![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/96838616/174843079-c363aff0-549b-46e0-a99d-fbc6d490dd97.gif)
 
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/96838616/174838196-61e924a3-79e3-40b6-a6e1-ae5241e724b9.gif)
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/96838616/174838848-15b1723d-ddca-465c-91d9-00366bb1bb1a.gif)
-
-
-
-
-
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/96838616/174842746-ac49ebb7-a5cf-4c3f-91d6-0d857ff394bd.gif)
 
 # Development
 
