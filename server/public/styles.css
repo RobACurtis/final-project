@@ -710,12 +710,12 @@ input.invalid::placeholder {
 
   /* form controls profile page */
 
-  .upload-form {
+  .upload-form-row {
     height: 10em;
     width: 55%;
   }
 
-  .delete-form {
+  .delete-form-row {
     height: 10em;
     width: 45%;
   }

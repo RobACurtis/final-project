@@ -76,7 +76,7 @@ export default class GuestSignIn extends React.Component {
         <Loader show={showLoader} container="loading-container-top" />
         <div className='form-container'>
           <form action="#explore" className='signup-form center' onSubmit={this.handleSubmit}>
-            <div className='circles'>
+            <div className='circles-row'>
               <div className='blue-circle circle'></div>
               <div className='green-circle circle'></div>
             </div>
