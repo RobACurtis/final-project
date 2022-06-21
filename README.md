@@ -103,7 +103,7 @@ sudo service postgresql start
 sudo service postgresql status
   ```
 
-7. Create a database (make sure it matches .env.example.
+7. Create a database (make sure it matches .env.example).
 
 ```shell
 createdb yourDatabaseName
