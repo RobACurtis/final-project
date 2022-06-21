@@ -1,6 +1,6 @@
 # surfr-photographer
 
-#### A web application for surf photographers who want to showcase their work to the world. 
+#### A web application for surf photographers who want to showcase their photographs to the world. 
 
 I built this full stack, single page application out of my love for coding and my love for surfing. I used to be a very active photographer, and I was a regular visitor to flickr.com as I browsed for inspiration for my own photography. I wanted to take on the challenge to replicate flickr's design and layout as well as put my own spin on it, and make an application exclusively for surf photographers. 
 
