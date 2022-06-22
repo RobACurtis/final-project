@@ -5,11 +5,8 @@ export default class ErrorPage extends React.Component {
     const subtitle = this.props.subtitle ? this.props.subtitle : 'An unexpected error occured!';
     return (
       <>
-        <div id="home-page">
-          <div className="hero-image" >
-            <div className='background-form"'></div>
-            <img src='/images/surfr3.jpg' alt='surfing' className='sign-up-image' />
-          </div>
+        <div>
+            <img src='/images/surfr3.jpg' alt='surfing' className='img-homepage' />
         </div>
         <div id="explore" className="overlay-homepage center">
           <div id="explore-text" className="d-flex center">

@@ -49,9 +49,7 @@ export default class Home extends React.Component {
     return (
     <>
       <div id="home-page">
-        <div className="hero-image">
         {imgList}
-        </div>
         <div id="explore" className="overlay-homepage center">
           <div id="explore-text" className="d-flex center">
             <div className="center">
