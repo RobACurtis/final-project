@@ -17,11 +17,13 @@ export default class App extends React.Component {
     this.state = {
       route: parseRoute(window.location.hash),
       isAuthorizing: true,
-      user: null
+      user: null,
+      profileImageUrl: ''
     };
     this.renderPage = this.renderPage.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
+    this.updateProfilePhoto = this.updateProfilePhoto.bind(this);
   }
 
   componentDidMount() {
@@ -38,7 +40,9 @@ export default class App extends React.Component {
         .then(response => {
           if (response.error) {
             window.localStorage.removeItem('react-context-jwt');
-            this.setState({ user: null });
+            this.setState({ user: null, profileImageUrl: null });
+          } else {
+            this.setState({ profileImageUrl: response.profileImageUrl });
           }
         });
     }
@@ -46,15 +50,23 @@ export default class App extends React.Component {
   }
 
   handleSignIn(result) {
-    const { user, token } = result;
+    const { user, token, profileImageUrl } = result;
     window.localStorage.setItem('react-context-jwt', token);
-    this.setState({ user });
+    this.setState({ user, profileImageUrl });
   }
 
   handleSignOut(event) {
     window.localStorage.removeItem('react-context-jwt');
     this.setState({ user: null });
     window.location.hash = '#';
+  }
+
+  updateProfilePhoto() {
+    fetch(`/api/user/${this.state.user.userId}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ profileImageUrl: response.profileImageUrl });
+      });
   }
 
   renderPage() {
@@ -91,9 +103,9 @@ export default class App extends React.Component {
 
   render() {
     if (this.state.isAuthorizing) return null;
-    const { handleSignIn, handleSignOut } = this;
-    const { route, user } = this.state;
-    const contextValue = { handleSignIn, handleSignOut, route, user };
+    const { handleSignIn, handleSignOut, updateProfilePhoto } = this;
+    const { route, user, profileImageUrl } = this.state;
+    const contextValue = { handleSignIn, handleSignOut, updateProfilePhoto, route, user, profileImageUrl };
     return (
     <>
     <AppContext.Provider value = {contextValue}>
