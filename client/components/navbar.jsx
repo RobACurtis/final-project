@@ -35,7 +35,7 @@ export default class Navbar extends React.Component {
         <div className='d-flex align-items-end nav-items'>
         <a href="#explore" className={`explore-link mx-4 mb-1 ${hideExploreNavigation}`}>Explore</a>
           <div onClick={this.showMenu} className={hideProfileIcon}>
-            <button className='icon-button'><img src={profileImage} className='navbar-user-img'></img></button>
+            <button className='nav-picture-button'><img src={profileImage} className='navbar-user-img'></img></button>
             <div className={`d-flex flex-column align-items-end position-absolute menu-items px-1 bg-light text-dark shadow ${showMenu}`}>
               <a href="#user-profile" className='item mt-2'>View Profile</a>
               <button onClick={this.context.handleSignOut} className='center log-out-button item'>Log Out</button>
