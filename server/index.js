@@ -22,6 +22,23 @@ const jsonMiddleware = express.json();
 
 app.use(jsonMiddleware);
 
+app.get('/api/user/:userId', (req, res, next) => {
+  const { userId } = req.params;
+  const sql = `
+  select "userId"
+    from "users"
+    where "userId" = $1
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      const account = result.rows[0];
+      if (!account) res.status(401).json({ error: 'account does not exist' });
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/explore-images/:images', (req, res, next) => {
   const { images } = req.params;
   const sql = `

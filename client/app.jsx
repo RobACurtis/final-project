@@ -21,6 +21,7 @@ export default class App extends React.Component {
     };
     this.renderPage = this.renderPage.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,16 @@ export default class App extends React.Component {
     });
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? jwtDecode(token) : null;
+    if (user) {
+      fetch(`/api/user/${user.userId}`)
+        .then(res => res.json())
+        .then(response => {
+          if (response.error) {
+            window.localStorage.removeItem('react-context-jwt');
+            this.setState({ user: null });
+          }
+        });
+    }
     this.setState({ user, isAuthorizing: false });
   }
 
@@ -38,6 +49,12 @@ export default class App extends React.Component {
     const { user, token } = result;
     window.localStorage.setItem('react-context-jwt', token);
     this.setState({ user });
+  }
+
+  handleSignOut(event) {
+    window.localStorage.removeItem('react-context-jwt');
+    this.setState({ user: null });
+    window.location.hash = '#';
   }
 
   renderPage() {
@@ -74,13 +91,12 @@ export default class App extends React.Component {
 
   render() {
     if (this.state.isAuthorizing) return null;
-    const { handleSignIn } = this;
+    const { handleSignIn, handleSignOut } = this;
     const { route, user } = this.state;
-    const contextValue = { handleSignIn, route, user };
+    const contextValue = { handleSignIn, handleSignOut, route, user };
     return (
     <>
     <AppContext.Provider value = {contextValue}>
-          {/* <Loader /> */}
       <Navbar />
       { this.renderPage() }
     </AppContext.Provider>

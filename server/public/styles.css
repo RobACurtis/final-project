@@ -50,10 +50,37 @@ nav {
   font-size: 1.3em;
 }
 
+.icon-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
 .log-in-btn {
   height: 2em;
   font-size: 1em;
   padding-top: 3px;
+}
+
+.item {
+  height: 2em;
+  border-bottom: 1px solid black;
+}
+
+.item:hover {
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.menu-items {
+  right: 12%;
+  font-size: 0.8em;
+  width: 8em;
+  border-radius: 5px;
+}
+
+.log-out {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 /* light explore navbar */
