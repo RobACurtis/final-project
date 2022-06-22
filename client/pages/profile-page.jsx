@@ -67,7 +67,7 @@ export default class ProfilePage extends React.Component {
       </div>
     <nav className="navbar bg-light py-3 shadow-sm profile-navbar-light position-sticky">
       <ul className="navbar-list">
-        <li className="nav-item light-nav-list-item active-nav">
+        <li className="light-nav-list-item active-nav">
           <p id='photostream'> Photostream</p>
         </li>
       </ul>

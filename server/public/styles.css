@@ -42,15 +42,11 @@ nav {
   top: 0.9rem;
 }
 
-.margin-ten-percent {
-  margin-right: 10%;
+.nav-items {
+  margin-right: 5%;
 }
 
-.icon {
-  font-size: 1.3em;
-}
-
-.icon-button {
+.nav-picture-button {
   border: none;
   background-color: rgba(255, 255, 255, 0);
 }
@@ -61,25 +57,35 @@ nav {
   padding-top: 3px;
 }
 
+.navbar-user-img {
+  width: 2.5em;
+  height: 2.5em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .item {
-  height: 2em;
-  border-bottom: 1px solid black;
+  height: 2.2em;
+  font-size: 1.2em;
+  margin: 0 0.3em;
 }
 
 .item:hover,
 .item:active {
-  text-decoration: underline;
+  border-bottom: 2px solid #007bff;
   font-style: italic;
 }
 
 .menu-items {
   right: 12%;
+  top: 100%;
   font-size: 0.8em;
-  width: 8em;
+  height: 6.5em;
+  width: 10em;
   border-radius: 5px;
 }
 
-.log-out {
+.log-out-button {
   border: none;
   background-color: rgba(255, 255, 255, 0);
 }
@@ -724,6 +730,10 @@ input.invalid::placeholder {
 }
 
 @media screen and (min-width: 600px) {
+  .nav-items {
+    margin-right: 10%;
+  }
+
   /* loader  */
   .loading-container-top {
     top: 4em;

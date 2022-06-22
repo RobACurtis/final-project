@@ -25,16 +25,17 @@ app.use(jsonMiddleware);
 app.get('/api/user/:userId', (req, res, next) => {
   const { userId } = req.params;
   const sql = `
-  select "userId"
+  select "userId",
+    "profileImageUrl"
     from "users"
     where "userId" = $1
   `;
   const params = [userId];
   db.query(sql, params)
     .then(result => {
-      const account = result.rows[0];
-      if (!account) res.status(401).json({ error: 'account does not exist' });
-      res.json(result.rows);
+      const user = result.rows[0];
+      if (!user) res.status(401).json({ error: 'account does not exist' });
+      res.json(user);
     })
     .catch(err => next(err));
 });
@@ -145,7 +146,8 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   }
   const sql = `
     select "userId",
-           "hashedPassword"
+           "hashedPassword",
+           "profileImageUrl"
       from "users"
      where "username" = $1
   `;
@@ -156,7 +158,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'Username not found.');
       }
-      const { userId, hashedPassword } = user;
+      const { userId, hashedPassword, profileImageUrl } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
@@ -165,7 +167,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
           }
           const payload = { userId, username };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-          res.json({ token, user: payload });
+          res.json({ token, user: payload, profileImageUrl });
         });
     })
     .catch(err => next(err));

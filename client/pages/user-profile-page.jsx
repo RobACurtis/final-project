@@ -61,6 +61,7 @@ export default class UserProfilePage extends React.Component {
           images
         });
       });
+    this.context.updateProfilePhoto();
   }
 
   componentDidMount() {
@@ -100,7 +101,7 @@ export default class UserProfilePage extends React.Component {
         </div>
         <nav className="navbar bg-light py-3 shadow-sm profile-navbar-light position-sticky">
           <ul className="navbar-list">
-            <li className="nav-item light-nav-list-item active-nav">
+            <li className="light-nav-list-item active-nav">
               <p id='photostream'> Photostream</p>
             </li>
           </ul>
