@@ -29,6 +29,8 @@ I built this full stack, single page application out of my love for coding and m
   Try the application live [surfr-photographer](https://surfr-photographer.herokuapp.com/)
   
  ## Feature List
+  - User can click their profile photo in the navbar to view their profile page or log out. 
+  - User can log out
   - User can delete a photo from their gallery.
   - User can scroll infinitely in the explore gallery.
   - User can upload images to a gallery
@@ -41,8 +43,6 @@ I built this full stack, single page application out of my love for coding and m
   - User can view a gallery of collective surf photography from all users.
 
 ## Stretch Features 
-  - User can log out.
-  - User can see their profile photo in the navbar when logged in.
   - User can edit their profile information.
   
 ## Preview
