@@ -23,10 +23,6 @@ I built this full stack, single page application out of my love for coding and m
   - npm
   - AWS S3
   - Heroku
-
-  ## Live Demo
-  
-  Try the application live [surfr-photographer](https://surfr.app/)
   
  ## Feature List
   - User can click their profile photo in the navbar to view their profile page or log out. 
